@@ -1,5 +1,5 @@
 ﻿using SqlSugar;
-using SqlsugarCodeFirst.QuickDomain;
+using SqlSugar.Extensions.DomainHelper;
 
 namespace Zhzt.Exam.QuestionLib.DomainModel
 {
@@ -18,18 +18,12 @@ namespace Zhzt.Exam.QuestionLib.DomainModel
     /// 如果选择了一个大科目 比如语文，题库的范围对应古诗词、文言文、拼音
     /// 如果选择的是一个小科目 比如拼音 题库的范围则只会对应拼音 以及拼音的子类别
     /// </summary>
-    public class QuestionType : BaseModel
+    public class QuestionType : TreeModel<QuestionType>
     {
         /// <summary>
         /// 名称
         /// </summary>
         [SugarColumn(ColumnDataType = "varchar(64)", IsNullable = false)]
         public string Name { get; set; } = String.Empty;
-
-        /// <summary>
-        /// 父ID
-        /// </summary>
-        [SugarColumn(IsNullable = true)]
-        public long? ParentId { get; set; }
     }
 }

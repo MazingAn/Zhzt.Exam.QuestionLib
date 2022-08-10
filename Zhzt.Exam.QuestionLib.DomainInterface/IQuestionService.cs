@@ -1,13 +1,12 @@
-﻿using SqlsugarCodeFirst.QuickDomain;
+﻿using SqlSugar.Extensions.DomainHelper;
+using Zhzt.Exam.QuestionLib.DomainModel;
 
 namespace Zhzt.Exam.QuestionLib.DomainInterface
 {
-    /// <summary>
-    /// This is a simple service 
-    /// </summary>
     public interface IQuestionService : IBaseService
     {
-        // do nothing if there is no special feature
-        // 如果没有额外的需求 这里可以什么都不做
+        // 附加分类信息到实体
+        public void AttachQuestionType(IEnumerable<Question>? questions);
+        public void AttachQuestionType(Question? question);
     }
 }

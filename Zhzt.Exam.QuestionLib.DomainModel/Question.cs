@@ -1,5 +1,5 @@
 ﻿using SqlSugar;
-using SqlsugarCodeFirst.QuickDomain;
+using SqlSugar.Extensions.DomainHelper;
 
 namespace Zhzt.Exam.QuestionLib.DomainModel
 {
@@ -67,5 +67,11 @@ namespace Zhzt.Exam.QuestionLib.DomainModel
         /// </summary>
         [SugarColumn(IsNullable = false)]
         public string RightAnswer { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 类型
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public QuestionType? QuestionType { get; set; } 
     }
 }

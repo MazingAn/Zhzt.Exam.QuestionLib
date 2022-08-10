@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SqlsugarCodeFirst.WebModel;
+using Netcore.Extensions.WebModels;
+using Zhzt.Exam.QuestionLib.Api.Models;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainModel;
 
@@ -68,7 +69,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                bool success = _questionTypeService?.Delete<QuestionType>(id) ?? false;
+                bool success = _questionTypeService?.DeleteByIdTree<QuestionType>(id) ?? false;
                 return success ?
                     HttpJsonResponse.SuccessResult(true, "删除数据成功") :
                     HttpJsonResponse.FailedResult("删除数据失败");
@@ -106,12 +107,12 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         /// 获取所有数据
         /// </summary>
         /// <returns>数据集合</returns>
-        [HttpGet("all")]
-        public HttpJsonResponse GetAll()
+        [HttpGet("all/tree")]
+        public HttpJsonResponse GetAllTree()
         {
             try
             {
-                var data = _questionTypeService?.GetAll<QuestionType>();
+                var data = _questionTypeService?.GetAllTree<QuestionType>();
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -126,12 +127,12 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页尺寸</param>
         /// <returns>分页结果</returns>
-        [HttpGet("page")]
-        public HttpJsonResponse GetPaged(int pageIndex, int pageSize)
+        [HttpGet("page/tree")]
+        public HttpJsonResponse GetTreePaged(int pageIndex, int pageSize)
         {
             try
             {
-                var data = _questionTypeService?.GetPage<QuestionType>(pageIndex, pageSize, o => o.CreateTime);
+                var data = _questionTypeService?.GetPageTree<QuestionType>(pageIndex, pageSize);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -140,7 +141,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
         }
 
-        /*
         /// <summary>
         /// 筛选数据
         /// </summary>
@@ -169,7 +169,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         [HttpPost("filterpage")]
         public HttpJsonResponse GetPagedByFilter(QuestionTypeFilter filter)
         {
-            // FIXME 请根据需求自行创建QuestionTypeFilter对象
             try
             {
                 var data = _questionTypeService?.FilterPage<QuestionType>(filter.PageIndex, filter.PageSize, filter.GetFilterExpression());
@@ -181,7 +180,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
 
         }
-        */
 
         /// <summary>
         /// 查询总数
@@ -201,13 +199,12 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
         }
 
-        /*
         /// <summary>
         /// 筛选查询总数
         /// </summary>
         /// <returns>数量</returns>
         [HttpPost("count/filter")]
-        public HttpJsonResponse CounAll(QuestionTypeFilter filter)
+        public HttpJsonResponse CountAll(QuestionTypeFilter filter)
         {
             try
             {
@@ -219,6 +216,5 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("查询失败");
             }
         }
-        */
     }
 }

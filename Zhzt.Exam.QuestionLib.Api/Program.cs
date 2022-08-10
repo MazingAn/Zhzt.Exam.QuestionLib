@@ -1,6 +1,5 @@
-using SqlsugarCodeFirst.Extensions;
-using SqlsugarCodeFirst.QuickDomain;
-using SqlsugarCodeFirst.Utils;
+using SqlSugar.Extensions.CodeFirst;
+using SqlSugar.Extensions.DomainHelper;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainService;
 
@@ -12,12 +11,14 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
   options.SerializerSettings.DateFormatString = "yyyy'-'MM'-'dd' 'HH':'mm':'ss";
   options.SerializerSettings.ContractResolver = new SnowflakeNewtonJsonResolver();
 });
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // SqlSugar配置
-builder.Services.AddSqlSugarSetup(builder.Configuration);
+builder.Services.AddSqlSugarWithRedisCacheSetup(builder.Configuration);
 // SqlSugar的雪花ID配置
 builder.Services.AddSqlSugarSonwFlakeSetup(builder.Configuration);
 // SqlSugarCodeFirst设置
@@ -35,8 +36,6 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

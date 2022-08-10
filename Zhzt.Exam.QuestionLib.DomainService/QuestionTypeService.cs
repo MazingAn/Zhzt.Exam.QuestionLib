@@ -1,5 +1,5 @@
 ﻿using SqlSugar;
-using SqlsugarCodeFirst.QuickDomain;
+using SqlSugar.Extensions.DomainHelper;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 
 namespace Zhzt.Exam.QuestionLib.DomainService
@@ -7,7 +7,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
     /// <summary>
     /// This is a sample service
     /// </summary>
-    public class QuestionTypeService : BaseService, IQuestionTypeService
+    public class QuestionTypeService : BaseCachedService, IQuestionTypeService
     {
         // Invoke super consturction for denpendency reject
         // 显示调用父类构造函数完成注入

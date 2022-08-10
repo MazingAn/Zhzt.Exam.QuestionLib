@@ -5,8 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="SqlSugarCodeFirst" Version="1.1.1" />
-	</ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SqlSugar.Extension.DomainHelper\SqlSugar.Extension.DomainHelper.csproj" />
+  </ItemGroup>
 
 </Project>

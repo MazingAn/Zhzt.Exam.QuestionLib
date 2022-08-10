@@ -1,0 +1,73 @@
+/** customer colorful card **/
+.card-blue {
+    color: white;
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
+.card-pink {
+    color: white;
+    background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+}
+
+.card-green {
+    color: white;
+   background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+}
+
+.card-purple {
+    color: white;
+    background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+}
+
+.card-cyan {
+    color: white;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
+
+.card-orange {
+    color: white;
+    background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+}
+
+.el-table .signlechoice-row {
+    --el-table-tr-bg-color: #aabc072b;
+}
+
+.el-table .multichoice-row {
+    --el-table-tr-bg-color: #bc92072b;
+}
+
+.el-table .judge-row {
+    --el-table-tr-bg-color: #07bc772b;
+}
+
+.el-table .blankfill-row {
+    --el-table-tr-bg-color: #0777bc2b;
+}
+
+.el-table .answerquestion-row {
+    --el-table-tr-bg-color: #39aec32b;
+}
+.center-pagination {
+    justify-content: center;
+}
+
+.table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.table-header .right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+/* modify elemnt-plus original css style : remove the middle line in card*/
+.el-card__header{
+    border-bottom: 0px !important;
+}
+

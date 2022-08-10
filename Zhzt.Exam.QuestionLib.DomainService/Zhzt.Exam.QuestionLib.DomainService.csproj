@@ -1,14 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove=".DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SqlSugarCore" Version="5.1.1" />
+  </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="SqlSugarCodeFirst" Version="1.1.1" />
-	</ItemGroup>
-	<ItemGroup>
+	  <ProjectReference Include="..\Netcore.Extensions.WebModels\Netcore.Extensions.WebModels.csproj" />
 	  <ProjectReference Include="..\Zhzt.Exam.QuestionLib.DomainInterface\Zhzt.Exam.QuestionLib.DomainInterface.csproj" />
 	  <ProjectReference Include="..\Zhzt.Exam.QuestionLib.DomainModel\Zhzt.Exam.QuestionLib.DomainModel.csproj" />
 	</ItemGroup>

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SqlsugarCodeFirst.WebModel;
+using Netcore.Extensions.WebModels;
+using Zhzt.Exam.QuestionLib.Api.Models;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainModel;
 
@@ -10,25 +11,25 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly ILogger<QuestionController> _logger;
-        private readonly IQuestionService _questionTypeService;
+        private readonly IQuestionService _questionService;
 
-        public QuestionController(ILogger<QuestionController> logger, IQuestionService questionTypeService)
+        public QuestionController(ILogger<QuestionController> logger, IQuestionService questionService)
         {
             _logger = logger;
-            _questionTypeService = questionTypeService;
+            _questionService = questionService;
         }
 
         /// <summary>
         /// 创建对象
         /// </summary>
-        /// <param name="questionType">对象实体</param>
+        /// <param name="question">对象实体</param>
         /// <returns>创建后的对象</returns>
         [HttpPost("create")]
-        public HttpJsonResponse Create(Question questionType)
+        public HttpJsonResponse Create(Question question)
         {
             try
             {
-                var data = _questionTypeService?.Save(questionType);
+                var data = _questionService?.Save(question);
                 return data is null ?
                     HttpJsonResponse.FailedResult("创建失败") :
                     HttpJsonResponse.SuccessResult(data);
@@ -42,14 +43,14 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <param name="questionType"></param>
+        /// <param name="question"></param>
         /// <returns>变更后的数据</returns>
         [HttpPut("update")]
-        public HttpJsonResponse Update(Question questionType)
+        public HttpJsonResponse Update(Question question)
         {
             try
             {
-                var data = _questionTypeService?.Update(questionType);
+                var data = _questionService?.Update(question);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -68,7 +69,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                bool success = _questionTypeService?.Delete<Question>(id) ?? false;
+                bool success = _questionService?.Delete<Question>(id) ?? false;
                 return success ?
                     HttpJsonResponse.SuccessResult(true, "删除数据成功") :
                     HttpJsonResponse.FailedResult("删除数据失败");
@@ -90,7 +91,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                bool success = _questionTypeService?.Delete<Question>(ids.Ids) ?? false;
+                bool success = _questionService?.Delete<Question>(ids.Ids) ?? false;
                 return success ?
                     HttpJsonResponse.SuccessResult(true, "删除数据成功") :
                     HttpJsonResponse.FailedResult("删除数据失败");
@@ -111,7 +112,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                var data = _questionTypeService?.GetAll<Question>();
+                var data = _questionService?.GetAll<Question>();
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -131,7 +132,8 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                var data = _questionTypeService?.GetPage<Question>(pageIndex, pageSize, o => o.CreateTime);
+                var data = _questionService?.GetPage<Question>(pageIndex, pageSize, o => o.CreateTime);
+                _questionService?.AttachQuestionType(data?.PageData);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -140,7 +142,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
         }
 
-        /*
         /// <summary>
         /// 筛选数据
         /// </summary>
@@ -151,7 +152,8 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                var data = _questionTypeService?.Filter<Question>(filterObj.GetFilterExpression());
+                var data = _questionService?.Filter<Question>(filterObj.GetFilterExpression());
+                _questionService?.AttachQuestionType(data);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -159,7 +161,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("执行筛选操作失败");
             }
         }
-       
+      
 
         /// <summary>
         /// 按条件分页筛选数据
@@ -172,7 +174,8 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             // FIXME 请根据需求自行创建QuestionFilter对象
             try
             {
-                var data = _questionTypeService?.FilterPage<Question>(filter.PageIndex, filter.PageSize, filter.GetFilterExpression());
+                var data = _questionService?.FilterPage<Question>(filter.PageIndex, filter.PageSize, filter.GetFilterExpression());
+                _questionService?.AttachQuestionType(data?.PageData);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -181,7 +184,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
 
         }
-        */
 
         /// <summary>
         /// 查询总数
@@ -192,7 +194,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                int? count = _questionTypeService?.Count<Question>();
+                int? count = _questionService?.Count<Question>();
                 return HttpJsonResponse.SuccessResult(count);
             }
             catch
@@ -201,7 +203,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
         }
 
-        /*
         /// <summary>
         /// 筛选查询总数
         /// </summary>
@@ -211,7 +212,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                int? count = _questionTypeService?.Count<Question>(filter.GetFilterExpression());
+                int? count = _questionService?.Count<Question>(filter.GetFilterExpression());
                 return HttpJsonResponse.SuccessResult(count);
             }
             catch
@@ -219,6 +220,5 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("查询失败");
             }
         }
-        */
     }
 }

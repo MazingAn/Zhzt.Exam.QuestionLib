@@ -1,4 +1,6 @@
-﻿using SqlsugarCodeFirst.QuickDomain;
+﻿
+
+using SqlSugar.Extensions.DomainHelper;
 
 namespace Zhzt.Exam.QuestionLib.DomainInterface
 {
