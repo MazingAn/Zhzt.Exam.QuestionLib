@@ -41,6 +41,28 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         }
 
         /// <summary>
+        /// 导入数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("import")]
+        public HttpJsonResponse Import()
+        {
+            try
+            {
+                IFormFile upFile = Request.Form.Files.Last();
+                long questionTypeId = long.Parse(Request.Form["questionTypeId"]);
+                var data = _questionService?.Import(questionTypeId, upFile);
+                return data is null ?
+                    HttpJsonResponse.FailedResult("创建失败") :
+                    HttpJsonResponse.SuccessResult(data);
+            }
+            catch
+            {
+                return HttpJsonResponse.FailedResult("创建失败");
+            }
+        }
+
+        /// <summary>
         /// 更新数据
         /// </summary>
         /// <param name="question"></param>
@@ -161,7 +183,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("执行筛选操作失败");
             }
         }
-      
 
         /// <summary>
         /// 按条件分页筛选数据

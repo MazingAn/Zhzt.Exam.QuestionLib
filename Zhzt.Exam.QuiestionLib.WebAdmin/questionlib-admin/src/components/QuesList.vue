@@ -15,9 +15,14 @@
             <el-button type="primary" @click="handleCreate()" v-if="props.createable">
                 新建题目
             </el-button>
+
+            <el-button type="danger" @click="handleDeleteMany()" v-if="props.multiDeleteable">
+                删除选中项
+            </el-button>
         </div>
     </div>
-    <el-table :data="tableData" style="width: 100%" :border="true">
+    <el-table :data="tableData" style="width: 100%" :border="true" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" v-if="props.multiDeleteable" />
         <el-table-column label="所属科目" width="180">
             <template #default="scope">
                 <el-tag>{{ scope.row.questionType?.name ?? '未分类' }}</el-tag>
@@ -44,11 +49,11 @@
     </el-table>
     <el-pagination background layout="prev, pager, next" class="center-pagination" v-model:currentPage="pageIndex"
         v-model:page-size="pageSize" :total="totalCount" :pageSize="pageSize" @current-change="handlePageChange" />
-    <QuesImptDlg ref="quesImportorRef" :reload="reload" :allQuestionTypes="props.allQuestionTypes" />
+    <QuesImptDlg ref="quesImportorRef" :reload="filterQuestions" :allQuestionTypes="props.allQuestionTypes" />
 </template>
 
 <script>
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { onMounted, reactive, toRefs, ref } from 'vue'
 import axios from '../utils/axios'
 import cache from '../utils/cache'
@@ -66,6 +71,7 @@ export default {
         doEdit: Function,
         createable: { type: Boolean, default: () => false },
         doCreate: Function,
+        multiDeleteable : {type : Boolean, default : ()=>false},
         importable: { type: Boolean, default: () => false },
         tableTitle: { type: String, default: () => "题目列表" },
         allQuestionTypes: { type: Array, default: () => [] }
@@ -78,7 +84,8 @@ export default {
             questionClass: props.questionClass ?? 0,
             questionType: props.questionType ?? 0,
             totalCount: 0,
-            allQuestionTypes: []
+            allQuestionTypes: [],
+            selectedRows: [],
         });
         const quesImportorRef = ref(null)
 
@@ -119,7 +126,6 @@ export default {
             state.pageIndex = newPageIndex;
             filterQuestions();
         };
-
         // 根据题型赋予每一行不同的样式
         const tableRowClassName = ({ row, rowIndex }) => {
             switch (row.questionClass) {
@@ -207,6 +213,43 @@ export default {
             }
         }
 
+        // 选择行
+        const handleSelectionChange = (val)=>{
+            state.selectedRows = val
+        }
+
+        // 删除多个
+        const handleDeleteMany = ()=>{
+            ElMessageBox.confirm(
+                '批量删除前请确认选择内容，您确定要删除当前选中的数据吗?',
+                '危险操作告警',
+                {
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                }
+            )
+            .then(() => {
+                let deleteIds = {
+                    ids : state.selectedRows.map((v)=>{return v.id})
+                }
+                axios.delete('/question/deletemany',{data: deleteIds})
+                .then(res=>{
+                    ElMessage.success('删除数据成功')
+                    filterQuestions()
+                })
+                .catch(err=>{
+                    ElMessage.error("删除数据失败")
+                })
+            })
+            .catch(() => {
+                ElMessage({
+                    type: 'info',
+                    message: '删除操作取消！',
+                })
+            })
+        }
+
         return {
             ...toRefs(state),
             tableRowClassName,
@@ -220,7 +263,9 @@ export default {
             props,
             filterQuestions,
             quesImportorRef,
-            convertQuestionType
+            convertQuestionType,
+            handleSelectionChange,
+            handleDeleteMany,
         };
     }
 }

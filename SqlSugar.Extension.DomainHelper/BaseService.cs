@@ -62,7 +62,7 @@ namespace SqlSugar.Extensions.DomainHelper
         /// <returns>是否删除成功</returns>
         public bool Delete<T>(IList<long> ids) where T : BaseModel, new()
         {
-            return _client?.Deleteable<T>().In(ids).ExecuteCommand() > 0;
+            return _client?.Deleteable<T>().In(ids.ToArray()).ExecuteCommand() > 0;
         }
 
         /// <summary>

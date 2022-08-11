@@ -13,7 +13,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 请求拦截器，内部根据返回值，重新组装，统一管理。
 axios.interceptors.response.use(res => {
-  if (res.success == false) {
+  if (res.data?.success == false) {
     return Promise.reject(res)
   }else{
     return res.data

@@ -7,7 +7,12 @@
             </el-form-item>
             <el-form-item label="题库文件">
                 <el-upload drag style="width: 100%;"
-                    action=cache.fileUploadAction>
+                ref="uploadRef"
+                 :auto-upload="false" 
+                 action="/api/question/import" 
+                 :before-upload="beforExcelUpload"
+                 :data="ruleForm"
+                 :on-success="onUploadSuccess">
                     <el-icon class="el-icon--upload">
                         <upload-filled />
                     </el-icon>
@@ -34,8 +39,6 @@
 <script>
 import { ElMessage } from 'element-plus'
 import { reactive, ref, toRefs, watch } from 'vue'
-import axios from '../utils/axios'
-import cache from '../utils/cache'
 
 const cascaderProps = {
     checkStrictly: true,
@@ -51,6 +54,7 @@ export default {
     },
     setup(props) {
         const formRef = ref(null)
+        const uploadRef = ref(null)
         const state = reactive({
             ruleForm: {
                 questionTypeId : ""
@@ -62,15 +66,40 @@ export default {
 
         const open = () => {
             state.visible = true
-
         }
 
         const close = () => {
+            state.ruleForm.questionTypeId = ""
             state.visible = false
         }
 
         const submitForm = () => {
+            uploadRef.value.submit()
+        }
 
+        const beforExcelUpload = (rawFile) => {
+            if (state.ruleForm.questionTypeId == ""){
+                ElMessage.error('请务必选择一个科目')
+                return false
+            }
+            if (rawFile.type !== 'application/vnd.ms-excel') {
+                 ElMessage.error('文件格式必须为excel格式!')
+                 return false
+            } else if (rawFile.size / 1024 / 1024 > 200) {
+                 ElMessage.error('请上传200MB以内的文件!')
+                 return false
+            }
+            return true
+        }
+
+        const onUploadSuccess = (res,up,ups)=>{
+            if(res.success){
+                ElMessage.success(`成功导入${res.data}项`)
+            }else{
+                ElMessage.error('数据导入失败')
+            }
+            if(props.reload){props.reload()}
+            close()
         }
 
         watch(
@@ -87,7 +116,9 @@ export default {
             close,
             cascaderProps,
             submitForm,
-            cahce
+            beforExcelUpload,
+            onUploadSuccess,
+            uploadRef,
         }
     }
 }

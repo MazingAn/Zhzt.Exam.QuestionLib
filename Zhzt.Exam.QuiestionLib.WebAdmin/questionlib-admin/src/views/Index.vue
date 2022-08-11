@@ -6,7 +6,7 @@
 
     <el-card class="function-card">
         <h2>快速查看</h2>
-        <QuesList ref="quesListRef" :pageSize="10" :questionClass="0" :hasHeader="true" :importable="true" :allQuestionTypes="allQuestionTypes"/>
+        <QuesList ref="quesListRef" :pageSize="10" :questionClass="0" :hasHeader="true" :importable="true" :allQuestionTypes="allQuestionTypes" :multiDeleteable="true"/>
     </el-card>
 </template>
 
