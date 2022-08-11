@@ -1,6 +1,6 @@
 ﻿
 
-using SqlSugar.Extensions.DomainHelper;
+using SqlSugar.Extension.DomainHelper;
 
 namespace Zhzt.Exam.QuestionLib.DomainInterface
 {

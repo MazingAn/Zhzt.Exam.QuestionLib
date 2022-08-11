@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".DS_Store" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SqlSugar.Extension.DomainHelper\SqlSugar.Extensions.DomainHelper.csproj" />
+    <ProjectReference Include="..\MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
   </ItemGroup>
 
 </Project>

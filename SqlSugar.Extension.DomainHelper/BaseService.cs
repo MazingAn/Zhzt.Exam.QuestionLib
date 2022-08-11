@@ -1,7 +1,7 @@
 ﻿using Netcore.Extensions.WebModels;
 using System.Linq.Expressions;
 
-namespace SqlSugar.Extensions.DomainHelper
+namespace SqlSugar.Extension.DomainHelper
 {
     /// <summary>
     /// 基于SqlSugar的基础增删改查接口的实现
@@ -147,7 +147,7 @@ namespace SqlSugar.Extensions.DomainHelper
         public T? Save<T>(T t) where T : BaseModel, new()
         {
             t.Id = SnowFlakeSingle.Instance.getID();
-            return _client?.Insertable<T>(t).ExecuteReturnEntity();
+            return _client?.Insertable(t).ExecuteReturnEntity();
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace SqlSugar.Extensions.DomainHelper
         /// <returns>修改后的数据</returns>
         public T? Update<T>(T t) where T : BaseModel, new()
         {
-            _client?.Updateable<T>(t).ExecuteCommand();
+            _client?.Updateable(t).ExecuteCommand();
             return t;
         }
 
@@ -182,12 +182,12 @@ namespace SqlSugar.Extensions.DomainHelper
             try
             {
                 primary.Id = SnowFlakeSingle.Instance.getID();
-                var savePrimary = Save<PrimaryT>(primary);
+                var savePrimary = Save(primary);
                 if (chiles is not null)
                 {
                     foreach (var chile in chiles)
                     {
-                        Save<MapperT>(new MapperT()
+                        Save(new MapperT()
                         {
                             Id = SnowFlakeSingle.Instance.getID(),
                             PrimaryTableId = savePrimary is not null ? savePrimary.Id : 0,
@@ -391,8 +391,8 @@ namespace SqlSugar.Extensions.DomainHelper
         {
             int totalCount = 0;
             var page = _client?.Queryable<ChildrenT>()
-                .ToTree(d => d.Child, d => d.ParentId,0)
-                .Take(pageSize).Skip((pageIndex-1) * pageSize)
+                .ToTree(d => d.Child, d => d.ParentId, 0)
+                .Take(pageSize).Skip((pageIndex - 1) * pageSize)
                 .ToList();
             totalCount = _client?.Queryable<ChildrenT>().Where(t => t.ParentId == 0).Count() ?? 0;
             return new PageResult<ChildrenT>(pageIndex, pageSize, totalCount, page);

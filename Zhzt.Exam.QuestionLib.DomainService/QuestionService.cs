@@ -3,7 +3,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using SqlSugar;
-using SqlSugar.Extensions.DomainHelper;
+using SqlSugar.Extension.DomainHelper;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainModel;
 

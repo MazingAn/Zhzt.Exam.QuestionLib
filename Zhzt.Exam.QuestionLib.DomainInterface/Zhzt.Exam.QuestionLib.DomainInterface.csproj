@@ -12,7 +12,7 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\SqlSugar.Extension.DomainHelper\SqlSugar.Extension.DomainHelper.csproj" />
+	  <ProjectReference Include="..\SqlSugar.Extension.DomainHelper\SqlSugar.Extensions.DomainHelper.csproj" />
 	  <ProjectReference Include="..\SqlSugar.Extensions.CodeFirst\SqlSugar.Extensions.CodeFirst.csproj" />
 	  <ProjectReference Include="..\Zhzt.Exam.QuestionLib.DomainModel\Zhzt.Exam.QuestionLib.DomainModel.csproj" />
 	</ItemGroup>

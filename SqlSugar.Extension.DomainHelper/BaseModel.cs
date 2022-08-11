@@ -1,6 +1,4 @@
-﻿using SqlSugar;
-
-namespace SqlSugar.Extensions.DomainHelper
+﻿namespace SqlSugar.Extension.DomainHelper
 {
     /// <summary>
     /// 基础模型

@@ -1,11 +1,10 @@
-﻿using SqlSugar;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlSugar.Extensions.DomainHelper
+namespace SqlSugar.Extension.DomainHelper
 {
     /// <summary>
     /// 基础映射类

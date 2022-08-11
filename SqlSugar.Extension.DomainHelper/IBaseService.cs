@@ -1,7 +1,7 @@
 ﻿using Netcore.Extensions.WebModels;
 using System.Linq.Expressions;
 
-namespace SqlSugar.Extensions.DomainHelper
+namespace SqlSugar.Extension.DomainHelper
 {
     /// <summary>
     /// 给予sqlsugar的基础增删改查方法

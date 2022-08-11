@@ -1,5 +1,5 @@
 ﻿using SqlSugar;
-using SqlSugar.Extensions.DomainHelper;
+using SqlSugar.Extension.DomainHelper;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 
 namespace Zhzt.Exam.QuestionLib.DomainService

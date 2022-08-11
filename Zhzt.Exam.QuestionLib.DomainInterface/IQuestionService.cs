@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SqlSugar.Extensions.DomainHelper;
+using SqlSugar.Extension.DomainHelper;
 using Zhzt.Exam.QuestionLib.DomainModel;
 
 namespace Zhzt.Exam.QuestionLib.DomainInterface
