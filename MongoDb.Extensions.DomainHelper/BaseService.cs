@@ -2,12 +2,11 @@
 using MongoDb.Extensions.Options;
 using MongoDB.Driver;
 using Netcore.Extensions.WebModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using AutoFilterer.Extensions;
+using AutoFilterer.Abstractions;
+using AutoFilterer.Enums;
+using AutoFilterer.Types;
 
 namespace MongoDb.Extensions.DomainHelper
 {
@@ -24,7 +23,7 @@ namespace MongoDb.Extensions.DomainHelper
             var mongoDatabase = mongoClient.GetDatabase(
                 databaseSettings.Value.DatabaseName);
 
-            _collection = mongoDatabase.GetCollection<T>(nameof(T));
+            _collection = mongoDatabase.GetCollection<T>(typeof(T).Name);
         }
 
         /// <summary>
@@ -52,23 +51,25 @@ namespace MongoDb.Extensions.DomainHelper
         /// <summary>
         /// 筛选数据
         /// </summary>
-        /// <param name="filterExpression">筛选表达式</param>
+        /// <param name="filter">筛选表达式</param>
         /// <returns>结果集合</returns>
-        public IEnumerable<T> FilterAll(Expression<Func<T, bool>> filterExpression)
+        public IEnumerable<T> FilterAll(FilterBase filter)
         {
-            return _collection.AsQueryable().Where(filterExpression).ToList();
+            filter.CombineWith = CombineType.And;
+            return _collection.AsQueryable().ApplyFilter(filter).ToList();
         }
 
         /// <summary>
         /// 分页筛选数据
         /// </summary>
-        /// <param name="filterExpression">筛选条件</param>
+        /// <param name="filter">筛选条件</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">分页大小</param>
         /// <returns></returns>
-        public PageResult<T> FilterPaged(Expression<Func<T, bool>> filterExpression, int pageIndex, int pageSize)
+        public PageResult<T> FilterPaged(FilterBase filter, int pageIndex, int pageSize)
         {
-            var query = _collection.AsQueryable().Where(filterExpression);
+            filter.CombineWith = CombineType.And;
+            var query = _collection.AsQueryable().ApplyFilter(filter);
             int totalCount = query.Count();
             var pageData = query.Take(pageSize).Skip((pageIndex - 1) * pageSize).ToList();
             return new PageResult<T>(pageIndex, pageSize, totalCount, pageData);
@@ -121,11 +122,13 @@ namespace MongoDb.Extensions.DomainHelper
         /// <summary>
         /// 按条件删除数据
         /// </summary>
-        /// <param name="filterExpression"></param>
+        /// <param name="filter"></param>
         /// <returns></returns>
-        public bool Remove(Expression<Func<T, bool>> filterExpression)
+        public bool Remove(FilterBase filter)
         {
-            _collection.DeleteMany(filterExpression);
+            filter.CombineWith = CombineType.And;
+            var deleteList = _collection.AsQueryable().ApplyFilter(filter).ToList();
+            _collection.DeleteMany(x => deleteList.Select(a => a.Id).Contains(x.Id));
             return true;
         }
 
@@ -138,6 +141,24 @@ namespace MongoDb.Extensions.DomainHelper
         {
             _collection.ReplaceOne(x => x.Id == t.Id, t);
             return t;
+        }
+
+        /// <summary>
+        /// 查询总数
+        /// </summary>
+        public int Count()
+        {
+            return _collection.AsQueryable().Count();
+        }
+
+        /// <summary>
+        /// 根据条件查询数量
+        /// </summary>
+        /// <param name="filterExpression"></param>
+        public int Count(FilterBase filter)
+        {
+            filter.CombineWith = CombineType.And;
+            return _collection.AsQueryable().ApplyFilter(filter).Count();
         }
     }
 }

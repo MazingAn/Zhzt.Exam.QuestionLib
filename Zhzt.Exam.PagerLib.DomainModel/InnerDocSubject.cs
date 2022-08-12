@@ -16,7 +16,7 @@ namespace Zhzt.Exam.PaperLib.DomainModel
         /// <summary>
         /// 自己的ID-对应mysql数据库
         /// </summary>
-        public string Id { get; set; } = string.Empty;
+        public string SubjectId { get; set; } = string.Empty;
 
         /// <summary>
         /// 上级ID-对应mysql数据库

@@ -10,4 +10,9 @@ namespace Netcore.Extensions.WebModels
     {
         public List<long> Ids { get; set; } = new List<long>();
     }
+
+    public class DeleteStrIds
+    {
+        public List<string> Ids { get; set; } = new List<string>();
+    }
 }

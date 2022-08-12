@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Zhzt.Exam.QuestionLib.DomainInterface": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50041;http://localhost:50049"
+    }
+  }
+}

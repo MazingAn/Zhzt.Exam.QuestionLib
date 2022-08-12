@@ -27,17 +27,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuestionDomain", "QuestionD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaperDomain", "PaperDomain", "{803577FD-A325-4379-96EC-C10CCC4393A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDb.Extensions.DomainHelper", "MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj", "{720D02F1-E594-4D9A-8205-86AF0BFD1E74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDb.Extensions.DomainHelper", "MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj", "{720D02F1-E594-4D9A-8205-86AF0BFD1E74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDb.Extensions.Options", "MongoDb.Extensions.Options\MongoDb.Extensions.Options.csproj", "{8F01FAEB-BA25-4D34-896D-1B04FD2D4E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDb.Extensions.Options", "MongoDb.Extensions.Options\MongoDb.Extensions.Options.csproj", "{8F01FAEB-BA25-4D34-896D-1B04FD2D4E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhzt.Exam.PaperLib.Api", "Zhzt.Exam.PaperLib.Api\Zhzt.Exam.PaperLib.Api.csproj", "{72006447-DAAF-4445-9376-5493511778CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.Api", "Zhzt.Exam.PaperLib.Api\Zhzt.Exam.PaperLib.Api.csproj", "{72006447-DAAF-4445-9376-5493511778CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhzt.Exam.PaperLib.DomainModel", "Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj", "{6B436030-8011-4200-A80C-93DF30C3502B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.DomainModel", "Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj", "{6B436030-8011-4200-A80C-93DF30C3502B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhzt.Exam.PaperLib.DomainInterface", "Zhzt.Exam.PaperLib.DomainInterface\Zhzt.Exam.PaperLib.DomainInterface.csproj", "{8FAD8BD9-5FE5-416A-828D-327EDE184A73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.DomainInterface", "Zhzt.Exam.PaperLib.DomainInterface\Zhzt.Exam.PaperLib.DomainInterface.csproj", "{8FAD8BD9-5FE5-416A-828D-327EDE184A73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhzt.Exam.PaperLib.DomainService", "Zhzt.Exam.PaperLib.DomainService\Zhzt.Exam.PaperLib.DomainService.csproj", "{9653D3F7-5F79-4F25-9B56-7E4816E348FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.DomainService", "Zhzt.Exam.PaperLib.DomainService\Zhzt.Exam.PaperLib.DomainService.csproj", "{9653D3F7-5F79-4F25-9B56-7E4816E348FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,10 +1,7 @@
-﻿using Netcore.Extensions.WebModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
+using AutoFilterer.Types;
+using Netcore.Extensions.WebModels;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MongoDb.Extensions.DomainHelper
 {
@@ -12,11 +9,11 @@ namespace MongoDb.Extensions.DomainHelper
     {
         public IEnumerable<T> GetAll();
 
-        public IEnumerable<T> FilterAll(Expression<Func<T, bool>> filterExpression);
+        public IEnumerable<T> FilterAll(FilterBase filter);
 
         public PageResult<T> GetPaged(int pageIndex, int pageSize);
 
-        public PageResult<T> FilterPaged(Expression<Func<T, bool>> filterExpression, int pageIndex, int pageSize);
+        public PageResult<T> FilterPaged(FilterBase filter, int pageIndex, int pageSize);
 
         public T Create(T t);
 
@@ -28,7 +25,11 @@ namespace MongoDb.Extensions.DomainHelper
 
         public bool Remove(string[] ids);
 
-        public bool Remove(Expression<Func<T,bool>> filterExpression);
+        public bool Remove(FilterBase filter);
+
+        public int Count();
+
+        public int Count(FilterBase filter);
 
     }
 }
