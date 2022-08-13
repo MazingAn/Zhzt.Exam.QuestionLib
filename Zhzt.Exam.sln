@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.DomainIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zhzt.Exam.PaperLib.DomainService", "Zhzt.Exam.PaperLib.DomainService\Zhzt.Exam.PaperLib.DomainService.csproj", "{9653D3F7-5F79-4F25-9B56-7E4816E348FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "background", "background", "{358F8771-ABBB-4888-A38D-AABBD46041DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zhzt.Exam.Gateway", "Zhzt.Exam.Gateway\Zhzt.Exam.Gateway.csproj", "{1C24F552-E075-4EF9-B409-A480C4E38460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,10 @@ Global
 		{9653D3F7-5F79-4F25-9B56-7E4816E348FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9653D3F7-5F79-4F25-9B56-7E4816E348FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9653D3F7-5F79-4F25-9B56-7E4816E348FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C24F552-E075-4EF9-B409-A480C4E38460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C24F552-E075-4EF9-B409-A480C4E38460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C24F552-E075-4EF9-B409-A480C4E38460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C24F552-E075-4EF9-B409-A480C4E38460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +125,7 @@ Global
 		{6B436030-8011-4200-A80C-93DF30C3502B} = {803577FD-A325-4379-96EC-C10CCC4393A3}
 		{8FAD8BD9-5FE5-416A-828D-327EDE184A73} = {803577FD-A325-4379-96EC-C10CCC4393A3}
 		{9653D3F7-5F79-4F25-9B56-7E4816E348FF} = {803577FD-A325-4379-96EC-C10CCC4393A3}
+		{1C24F552-E075-4EF9-B409-A480C4E38460} = {358F8771-ABBB-4888-A38D-AABBD46041DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1AC8227-9DDB-4C1C-9735-FB9772DA6A8E}

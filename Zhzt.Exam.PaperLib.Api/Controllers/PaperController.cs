@@ -8,7 +8,7 @@ using Zhzt.Exam.PaperLib.DomainModel;
 namespace Zhzt.Exam.PaperLib.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/paperlib/[controller]")]
     public class PaperController : ControllerBase
     {
         private readonly IPaperService? _paperService;

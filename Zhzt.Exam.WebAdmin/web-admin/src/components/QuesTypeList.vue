@@ -85,7 +85,7 @@ export default {
 
         // 分页加载问题分类列表 支持筛选
         const loadQuestionTypes = () => {
-            let url = `/questionType/page/tree?pageIndex=${state.pageIndex}&pageSize=${state.pageSize}`
+            let url = `/questionlib/questiontype/page/tree?pageIndex=${state.pageIndex}&pageSize=${state.pageSize}`
             axios.get(url)
                 .then(res => {
                     state.tableData = res.data.pageData
@@ -100,7 +100,7 @@ export default {
 
         // 加载所有问题分类列表
         const loadAllQuestionTypes = () => {
-            let url = '/questionType/all/tree'
+            let url = '/questionlib/questiontype/all/tree'
             axios.get(url)
                 .then(res => {
                     state.allQuestionTypes = quesTypeAddDlgRef.value.convertQuestionType(res.data)
@@ -119,7 +119,7 @@ export default {
 
         // 删除单个
         const handleDeleteOne = (id) => {
-            axios.delete(`/questiontype/delete?id=${id}`)
+            axios.delete(`/questionlib/questiontype/delete?id=${id}`)
                 .then(res => {
                     ElMessage.success("删除成功！")
                     reload()

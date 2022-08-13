@@ -93,7 +93,7 @@ export default {
                 if (valid) {
                     if (props.type == 'add') {
                         // 添加方法
-                        axios.post('/question/create', state.ruleForm)
+                        axios.post('/questionlib/question/create', state.ruleForm)
                             .then(() => {
                                 ElMessage.success('添加成功')
                                 state.visible = false
@@ -102,7 +102,7 @@ export default {
                             })
                     } else {
                         // 修改方法
-                        axios.put('/question/update', {
+                        axios.put('/questionlib/question/update', {
                             id: state.id,
                             questionBody: state.ruleForm.questionBody,
                             questionTypeId: state.ruleForm.questionTypeId,

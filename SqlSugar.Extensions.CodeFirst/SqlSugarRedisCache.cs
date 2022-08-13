@@ -9,7 +9,7 @@ namespace SqlSugar.Extensions.CodeFirst
 {
     public class SqlSugarRedisCache : ICacheService
     {
-        public static SugarRedisClient _service;
+        public static SugarRedisClient _service = null!;
 
         public SqlSugarRedisCache()
         {

@@ -1,3 +1,4 @@
+using Nacos.AspNetCore.V2;
 using SqlSugar.Extension.DomainHelper;
 using SqlSugar.Extensions.CodeFirst;
 using Zhzt.Exam.QuestionLib.DomainInterface;
@@ -12,6 +13,12 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
   options.SerializerSettings.ContractResolver = new SnowflakeNewtonJsonResolver();
 });
 
+// Add Nacos Support to load configuration from nacos server
+builder.Host.ConfigureAppConfiguration((context, builder) =>
+{
+    var c = builder.Build();
+    builder.AddNacosV2Configuration(c.GetSection("NacosConfig"));
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,9 +31,12 @@ builder.Services.AddSqlSugarSonwFlakeSetup(builder.Configuration);
 // SqlSugarCodeFirst设置
 builder.Services.AddCodeFirstSetup(builder.Configuration, typeof(BaseModel));
 
-//示例服务的注入
+//服务的注入
 builder.Services.AddTransient<IQuestionService, QuestionService>();
 builder.Services.AddTransient<IQuestionTypeService, QuestionTypeService>();
+
+// Regist this service to nacos server
+builder.Services.AddNacosAspNet(builder.Configuration);
 
 var app = builder.Build();
 

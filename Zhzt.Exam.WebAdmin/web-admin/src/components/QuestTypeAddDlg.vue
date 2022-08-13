@@ -73,7 +73,7 @@ export default {
                 if (valid) {
                     if (props.type == 'add') {
                         // 添加方法
-                        axios.post('/questiontype/create', {
+                        axios.post('/questionlib/questiontype/create', {
                             name : state.ruleForm.name,
                             parentId: state.ruleForm.parentId
                         })
@@ -85,7 +85,7 @@ export default {
                         })
                     } else {
                         // 修改方法
-                        axios.put('/questiontype/update', {
+                        axios.put('/questionlib/questiontype/update', {
                             id: state.id,
                             name: state.ruleForm.name,
                             parentId: state.ruleForm.parentId,

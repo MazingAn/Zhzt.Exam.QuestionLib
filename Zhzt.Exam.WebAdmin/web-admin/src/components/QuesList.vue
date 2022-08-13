@@ -96,7 +96,7 @@ export default {
 
         // 分页加载问题列表 支持筛选
         const filterQuestions = (filter) => {
-            let url = `/question/filterpage`;
+            let url = `/questionlib/question/filterpage`;
             let filterData = {};
             if (filter) {
                 filterData = filter;
@@ -188,7 +188,7 @@ export default {
         };
         // 执行删除 和题型无关可以直接在这里统一写一个删除方法
         const handleDeleteOne = (id) => {
-            axios.delete(`/question/delete?id=${id}`)
+            axios.delete(`/questionlib/question/delete?id=${id}`)
                 .then(res => {
                     ElMessage.success("删除数据成功");
                     filterQuestions();
@@ -233,7 +233,7 @@ export default {
                 let deleteIds = {
                     ids : state.selectedRows.map((v)=>{return v.id})
                 }
-                axios.delete('/question/deletemany',{data: deleteIds})
+                axios.delete('/questionlib/question/deletemany',{data: deleteIds})
                 .then(res=>{
                     ElMessage.success('删除数据成功')
                     filterQuestions()

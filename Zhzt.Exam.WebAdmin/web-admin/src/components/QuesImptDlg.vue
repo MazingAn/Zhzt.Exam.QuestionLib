@@ -9,7 +9,7 @@
                 <el-upload drag style="width: 100%;"
                 ref="uploadRef"
                  :auto-upload="false" 
-                 action="/api/question/import" 
+                 action="/api/questionlib/question/import" 
                  :before-upload="beforExcelUpload"
                  :data="ruleForm"
                  :on-success="onUploadSuccess">

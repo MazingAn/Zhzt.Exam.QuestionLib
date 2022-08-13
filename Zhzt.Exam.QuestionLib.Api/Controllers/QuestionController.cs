@@ -7,7 +7,7 @@ using Zhzt.Exam.QuestionLib.DomainModel;
 namespace Zhzt.Exam.QuestionLib.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/questionlib/[controller]")]
     public class QuestionController : ControllerBase
     {
         private readonly ILogger<QuestionController> _logger;

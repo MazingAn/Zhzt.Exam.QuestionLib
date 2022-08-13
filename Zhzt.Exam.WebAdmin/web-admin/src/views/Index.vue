@@ -35,7 +35,7 @@ export default {
         
         // 加载选项列表并转换成为uimodel
         const loadQuestionTypeTree = ()=>{
-            let url = '/questionType/all/tree'
+            let url = '/questionlib/questiontype/all/tree'
             axios.get(url)
             .then(res => {
                state.allQuestionTypes = quesListRef.value.convertQuestionType(res.data)

@@ -119,7 +119,7 @@ export default {
         })
 
         const getQuestionCount = (questionClassId) => {
-            axios.post('/question/count/filter',
+            axios.post('/questionlib/question/count/filter',
             {
                 "questionClass": questionClassId
             })
