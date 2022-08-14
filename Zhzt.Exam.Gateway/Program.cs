@@ -27,8 +27,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/questionlib/swagger/v1/swagger.json", " ‘Ã‚ø‚API");
-        c.SwaggerEndpoint("/paperlib/swagger/v1/swagger.json", " ‘æÌø‚API");
+        c.SwaggerEndpoint("/questionlib/swagger/v1/swagger.json", "QuestionLib API");
+        c.SwaggerEndpoint("/paperlib/swagger/v1/swagger.json", "PaperLib API");
     });
 }
 
