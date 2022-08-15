@@ -32,7 +32,7 @@
             </template>
             <el-menu-item-group>
               <template #title><span>分类信息</span></template>
-              <el-menu-item index="/quesType">课目分类</el-menu-item>
+              <el-menu-item index="/quesType">科目配置</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="问题内容">
               <el-menu-item index="/singleChoice">单项选择题</el-menu-item>
@@ -42,7 +42,7 @@
               <el-menu-item index="/quesAnswer">问答题</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <el-menu-item index="2">
+          <el-menu-item index="/paper">
             <el-icon>
               <Promotion />
             </el-icon>

@@ -9,6 +9,7 @@
     <DockerServiceName>zhzt.exam.gateway</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose-settings.env" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

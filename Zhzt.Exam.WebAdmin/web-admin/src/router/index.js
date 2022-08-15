@@ -6,7 +6,8 @@ import SingleChoice from '../views/SingleChoice.vue'
 import MultiChoice from '../views/MultiChoice.vue'
 import Judge from '../views/Judge.vue'
 import BlankFill from '../views/BlankFill.vue'
-import QuesAnswer from '../views/quesAnswer.vue'
+import QuesAnswer from '../views/QuesAnswer.vue'
+import Paper from '../views/Paper.vue'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -45,6 +46,11 @@ const router = createRouter({
             path: '/quesAnswer',
             name: 'quesAnswer',
             component: QuesAnswer
+        },
+        {
+            path: '/paper',
+            name: 'paper',
+            component: Paper
         }
     ]
 })

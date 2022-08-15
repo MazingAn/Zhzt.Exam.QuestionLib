@@ -23,7 +23,8 @@ export default {
       multiChoice : '多选题',
       judge: '判断题',
       blankFill: '填空题',
-      quesAnswer: '问答题'
+      quesAnswer: '问答题',
+      paper: '试卷'
     }
     const states = reactive({
       name : '控制台'
