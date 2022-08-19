@@ -34,6 +34,15 @@ namespace Zhzt.Exam.PaperLib.DomainModel
         //问答题列表
         public IEnumerable<InnerDocPaperQuestion> QuesAnswerQuestions { get; set; } = null!;
 
+        //名词解释题列表
+        public IEnumerable<InnerDocPaperQuestion> NounParsingQuestions { get; set; } = null!;
+
+        //论述题列表
+        public IEnumerable<InnerDocPaperQuestion> EssayQuestions { get; set; } = null!;
+
+        //计算题列表
+        public IEnumerable<InnerDocPaperQuestion> ComputeQuestions { get; set; } = null!;
+
         ///试卷路径
         public string? PaperFilePath { get; set; } = string.Empty;
 

@@ -30,5 +30,20 @@ namespace Zhzt.Exam.PaperLib.DomainModel
         // 问答数量 总分
         public int QuesAnswerCount { get; set; }
         public float QuesAnswereTotalScore { get; set; }
+
+
+        // 名词解释数量 总分
+        public int NounParsingCount { get; set; }
+        public float NounParsingTotalScore { get; set; }
+
+
+        // 论述数量 总分
+        public int EssayCount { get; set; }
+        public float EssayTotalScore { get; set; }
+
+
+        // 计算数量 总分
+        public int ComputeCount { get; set; }
+        public float ComputeTotalScore { get; set; }
     }
 }

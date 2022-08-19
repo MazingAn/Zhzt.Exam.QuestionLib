@@ -59,7 +59,28 @@ namespace Zhzt.Exam.PaperLib.DomainService
                         docPaper.QuesAnswerQuestions = await LoadRandomQuestionsAsync(docPaper.Subject.SubjectId, docPaper.PagerConfig.QuesAnswerCount, 5);
                     }));
                 }
-                if(tasks.Count > 0)
+                if (docPaper.PagerConfig.NounParsingCount > 0)
+                {
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        docPaper.NounParsingQuestions = await LoadRandomQuestionsAsync(docPaper.Subject.SubjectId, docPaper.PagerConfig.QuesAnswerCount, 6);
+                    }));
+                }
+                if (docPaper.PagerConfig.ComputeCount > 0)
+                {
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        docPaper.ComputeQuestions = await LoadRandomQuestionsAsync(docPaper.Subject.SubjectId, docPaper.PagerConfig.QuesAnswerCount, 7);
+                    }));
+                }
+                if (docPaper.PagerConfig.EssayCount > 0)
+                {
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        docPaper.EssayQuestions = await LoadRandomQuestionsAsync(docPaper.Subject.SubjectId, docPaper.PagerConfig.QuesAnswerCount, 8);
+                    }));
+                }
+                if (tasks.Count > 0)
                 {
                     Task.WaitAll(tasks.ToArray());
                 }

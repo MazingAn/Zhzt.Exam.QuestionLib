@@ -11,11 +11,11 @@
             <el-form-item label="总分设置" prop="ruleForm.pagerConfig.totalScore">
                 <el-input-number v-model="ruleForm.pagerConfig.totalScore" :precision="2" :step="5" :max="1000" />
             </el-form-item>
-            <el-form-item label="选择题设置">
+            <el-form-item label="单项选择题设置">
                 <el-col :span="11">
                     <el-form-item label="总分" prop="ruleForm.pagerConfig.singleChoiceTotalScore" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.singleChoiceTotalScore" :precision="2" :step="5"
-                            :max="1000" />
+                            :max="1000"  @change="handleScoreChange" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="2"></el-col>
@@ -31,7 +31,7 @@
                 <el-col :span="11">
                     <el-form-item label="总分" prop="ruleForm.pagerConfig.multiChoiceTotalScore" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.multiChoiceTotalScore" :precision="2" :step="5"
-                            :max="1000" />
+                            :max="1000" @change="handleScoreChange" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="2"></el-col>
@@ -46,7 +46,7 @@
                 <el-col :span="11">
                     <el-form-item label="总分" prop="ruleForm.pagerConfig.judgeTotalScore" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.judgeTotalScore" :precision="2" :step="5"
-                            :max="1000" />
+                            :max="1000"  @change="handleScoreChange"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="2"></el-col>
@@ -57,11 +57,41 @@
                 </el-col>
             </el-form-item>
 
+            <el-form-item label="计算题设置">
+                <el-col :span="11">
+                    <el-form-item label="总分" prop="ruleForm.pagerConfig.computeTotalScore" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.computeTotalScore" :precision="2" :step="5"
+                            :max="1000"  @change="handleScoreChange"/>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="2"></el-col>
+                <el-col :span="11">
+                    <el-form-item label="数量" prop="ruleForm.pagerConfig.computeCount" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.computeCount" :step="1" :max="1000" />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="名词解释题设置">
+                <el-col :span="11">
+                    <el-form-item label="总分" prop="ruleForm.pagerConfig.nounParsingTotalScore" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.nounParsingTotalScore" :precision="2" :step="5"
+                            :max="1000"  @change="handleScoreChange"/>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="2"></el-col>
+                <el-col :span="11">
+                    <el-form-item label="数量" prop="ruleForm.pagerConfig.nounParsingCount" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.nounParsingCount" :step="1" :max="1000" />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
             <el-form-item label="填空题设置">
                 <el-col :span="11">
                     <el-form-item label="总分" prop="ruleForm.pagerConfig.blankFillTotalScore" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.blankFillTotalScore" :precision="2" :step="5"
-                            :max="1000" />
+                            :max="1000"  @change="handleScoreChange"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="2"></el-col>
@@ -76,13 +106,28 @@
                 <el-col :span="11">
                     <el-form-item label="总分" prop="ruleForm.pagerConfig.quesAnswereTotalScore" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.quesAnswereTotalScore" :precision="2" :step="5"
-                            :max="1000" />
+                            :max="1000"  @change="handleScoreChange"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="2"></el-col>
                 <el-col :span="11">
                     <el-form-item label="数量" prop="ruleForm.pagerConfig.quesAnswerCount" label-width="50">
                         <el-input-number v-model="ruleForm.pagerConfig.quesAnswerCount" :step="1" :max="1000" />
+                    </el-form-item>
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="论述题设置">
+                <el-col :span="11">
+                    <el-form-item label="总分" prop="ruleForm.pagerConfig.essayTotalScore" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.essayTotalScore" :precision="2" :step="5"
+                            :max="1000"  @change="handleScoreChange"/>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="2"></el-col>
+                <el-col :span="11">
+                    <el-form-item label="数量" prop="ruleForm.pagerConfig.essayCount" label-width="50">
+                        <el-input-number v-model="ruleForm.pagerConfig.essayCount" :step="1" :max="1000" />
                     </el-form-item>
                 </el-col>
             </el-form-item>
@@ -157,13 +202,22 @@ export default {
                     blankFillCount: 0,
                     blankFillTotalScore: 0,
                     quesAnswerCount: 0,
-                    quesAnswereTotalScore: 0
+                    quesAnswereTotalScore: 0,
+                    nounParsingCount: 0,
+                    nounParsingTotalScore: 0,
+                    essayCount: 0,
+                    essayTotalScore: 0,
+                    computeCount: 0,
+                    computeTotalScore: 0
                 },
                 singleChoiceQuestions: [],
                 multiChoiceQuestions: [],
                 judgeQuestions: [],
                 blankFillQuestions: [],
                 quesAnswerQuestions: [],
+                nounParsingQuestions: [],
+                essayQuestions: [],
+                computeQuestions: [],
                 reGenerateQuestions: false,
                 subjectIdBeforEdit: ''
             },
@@ -204,13 +258,22 @@ export default {
                         blankFillCount: 0,
                         blankFillTotalScore: 0,
                         quesAnswerCount: 0,
-                        quesAnswereTotalScore: 0
+                        quesAnswereTotalScore: 0,
+                        nounParsingCount: 0,
+                        nounParsingTotalScore: 0,
+                        essayCount: 0,
+                        essayTotalScore: 0,
+                        computeCount: 0,
+                        computeTotalScore: 0
                     },
                     singleChoiceQuestions: [],
                     multiChoiceQuestions: [],
                     judgeQuestions: [],
                     blankFillQuestions: [],
                     quesAnswerQuestions: [],
+                    nounParsingQuestions: [],
+                    essayQuestions: [],
+                    computeQuestions: [],
                     reGenerateQuestions: false,
                 }
             }
@@ -292,6 +355,18 @@ export default {
             })
         }
 
+        const handleScoreChange = ()=>{
+            state.ruleForm.pagerConfig.totalScore = 
+                state.ruleForm.pagerConfig.singleChoiceTotalScore + 
+                state.ruleForm.pagerConfig.multiChoiceTotalScore +
+                state.ruleForm.pagerConfig.judgeTotalScore +  
+                state.ruleForm.pagerConfig.blankFillTotalScore +   
+                state.ruleForm.pagerConfig.quesAnswereTotalScore +   
+                state.ruleForm.pagerConfig.essayTotalScore +   
+                state.ruleForm.pagerConfig.nounParsingTotalScore+   
+                state.ruleForm.pagerConfig.computeTotalScore  
+        }
+
         watch(
             () => props.allQuestionTypes,
             (newVal, oldVal) => {
@@ -307,6 +382,7 @@ export default {
             cascaderProps,
             submitForm,
             handleSubjectChange,
+            handleScoreChange
         }
     }
 }

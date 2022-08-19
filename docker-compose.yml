@@ -10,6 +10,8 @@ services:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
     ports:
       - "8081:80"
+    volumes:
+      - /home/questionlib/static:/app/static
     command: "dotnet /app/zhzt.exam.questionlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8081"
 
   zhzt.exam.paperlib.api:

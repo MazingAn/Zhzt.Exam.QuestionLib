@@ -235,6 +235,17 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                         }
                     }
                     return string.Join('$', bfAnswers);
+                case 7:
+                    List<string> cAnswers = new();
+                    for (int i = 1; i < 6; i++)
+                    {
+                        var ans = row.GetCell(i).ToString()?.Trim() ?? string.Empty;
+                        if (ans != string.Empty)
+                        {
+                            cAnswers.Add(ans);
+                        }
+                    }
+                    return string.Join('$', cAnswers);
                 default:
                     return answer;
             }
@@ -533,7 +544,12 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                     }
                     else if (quesTypeName.Contains("计算") || quesTypeName.Contains("填空"))
                     {
-                        ques.RightAnswer = String.Join('$', lines[i].Replace("【答案】", "").Split('$'));
+                        ques.RightAnswer = String.Join('$', lines[i].Replace("【答案】", "").Split('，'));
+                    }
+                    else if (quesTypeName.Contains("判断"))
+                    {
+
+                        ques.RightAnswer = lines[i].Equals("对") ? true.ToString().ToLower() : false.ToString().ToLower();
                     }
                     else
                     {
@@ -587,7 +603,6 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                                             var fileName = $"{Guid.NewGuid().ToString()}.png";
                                             var imgUrl = Path.Combine(_staticFileSettings.StaticServerRoot, fileName);
                                             var part = doc.MainDocumentPart.GetPartById(imgData.RelationshipId!);
-                                            Console.WriteLine(part.ContentType);
                                             if (part.ContentType == "image/x-wmf")
                                             {
                                                 Stream imgstream = part.GetStream();
