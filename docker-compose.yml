@@ -10,7 +10,7 @@ services:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
     ports:
       - "8081:80"
-    command: "dotnet /app/zhzt.exam.questionlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.109 nacos:port=8081"
+    command: "dotnet /app/zhzt.exam.questionlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8081"
 
   zhzt.exam.paperlib.api:
     image: ${DOCKER_REGISTRY-}zhztexampaperlibapi
@@ -21,7 +21,7 @@ services:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
     ports:
       - "8082:80"
-    command: "dotnet /app/zhzt.exam.paperlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.109 nacos:port=8082"
+    command: "dotnet /app/zhzt.exam.paperlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8082"
 
   zhzt.exam.gateway:
     image: ${DOCKER_REGISTRY-}zhztexamgateway
@@ -32,4 +32,4 @@ services:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
     ports:
       - "8080:80"
-    command: "dotnet /app/zhzt.exam.gateway.dll --urls=http://*:80 nacos:ip=192.168.10.109 nacos:port=8080"
+    command: "dotnet /app/zhzt.exam.gateway.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8080"

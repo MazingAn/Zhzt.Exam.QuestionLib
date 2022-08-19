@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj" />
-    <ProjectReference Include="..\Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
   </ItemGroup>
 
 </Project>

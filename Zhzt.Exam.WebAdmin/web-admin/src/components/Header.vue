@@ -24,7 +24,10 @@ export default {
       judge: '判断题',
       blankFill: '填空题',
       quesAnswer: '问答题',
-      paper: '试卷'
+      essayQues: '论述题',
+      nounParsing: '名字解释',
+      computeQues: '计算题',
+      paper: '试卷',
     }
     const states = reactive({
       name : '控制台'

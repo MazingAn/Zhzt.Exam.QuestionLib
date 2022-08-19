@@ -1,5 +1,7 @@
+using MicroService.NacosDiscover.Helper;
 using MongoDb.Extensions.Options;
 using Nacos.AspNetCore.V2;
+using Zhzt.Exam.PaperLib.Configuration;
 using Zhzt.Exam.PaperLib.DomainInterface;
 using Zhzt.Exam.PaperLib.DomainService;
 
@@ -14,11 +16,18 @@ builder.Host.ConfigureAppConfiguration((context, builder) =>
 
 // Add MongoDb Configuration
 builder.Services.AddMongoDbConfig(builder.Configuration);
+// Add PaperGenerate Configuration
+builder.Services.AddPaperGenerateConfig(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add Nacos DisCover
+builder.Services.AddScoped<NacosServiceDiscover>();
+
+builder.Services.AddScoped<IPaperGenerate, WordPaperGenerator>();
 
 builder.Services.AddTransient<IPaperService, PaperService>();
 

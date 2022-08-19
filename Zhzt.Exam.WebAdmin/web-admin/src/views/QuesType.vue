@@ -1,6 +1,6 @@
 <template>
 <el-card>
-    <QuesTypeList :pageSize="15"/>
+    <QuesTypeList :pageSize="12"/>
 </el-card>
 </template>
 

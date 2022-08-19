@@ -36,7 +36,7 @@ export default {
         }
 
         const createPaper = ()=>{
-            state.editType = 'open'
+            state.editType = 'add'
             dlgRef.value.open()
         }
 
@@ -65,6 +65,7 @@ export default {
                     rObj['key'] = val.id
                     rObj['value'] = val.id
                     rObj['label'] = val.name
+                    rObj['parentId'] = val.parentId
                     rObj['children'] = convertQuestionType(val.child)
                     rObj['disabled'] = false
                     return rObj

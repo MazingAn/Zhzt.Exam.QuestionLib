@@ -2,17 +2,13 @@
     <el-dialog :title="'导入题库'" v-model="visible" width="600px">
         <el-form :model="ruleForm" ref="formRef" label-width="100px">
             <el-form-item label="所属科目" prop="questionTypeId">
-                <el-cascader v-model="ruleForm.questionTypeId" :options="allQuestionTypes" :props="cascaderProps"
-                    clearable />
+                <el-cascader placeholder="选择科目" v-model="ruleForm.questionTypeId" :options="allQuestionTypes"
+                    :props="cascaderProps" clearable />
             </el-form-item>
             <el-form-item label="题库文件">
-                <el-upload drag style="width: 100%;"
-                ref="uploadRef"
-                 :auto-upload="false" 
-                 action="/api/questionlib/question/import" 
-                 :before-upload="beforExcelUpload"
-                 :data="ruleForm"
-                 :on-success="onUploadSuccess">
+                <el-upload drag style="width: 100%;" ref="uploadRef" :auto-upload="false"
+                    action="/api/questionlib/question/import" :before-upload="beforExcelUpload" :data="ruleForm"
+                    :on-success="onUploadSuccess">
                     <el-icon class="el-icon--upload">
                         <upload-filled />
                     </el-icon>
@@ -57,7 +53,7 @@ export default {
         const uploadRef = ref(null)
         const state = reactive({
             ruleForm: {
-                questionTypeId : ""
+                questionTypeId: ""
             },
             id: '',
             visible: false,
@@ -78,27 +74,27 @@ export default {
         }
 
         const beforExcelUpload = (rawFile) => {
-            if (state.ruleForm.questionTypeId == ""){
+            if (state.ruleForm.questionTypeId == "") {
                 ElMessage.error('请务必选择一个科目')
                 return false
             }
-            if (rawFile.type !== 'application/vnd.ms-excel') {
-                 ElMessage.error('文件格式必须为excel格式!')
-                 return false
+            if (rawFile.type !== 'application/vnd.ms-excel' && rawFile.type !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                ElMessage.error('文件格式必须为excel或word-docx格式！')
+                return false
             } else if (rawFile.size / 1024 / 1024 > 200) {
-                 ElMessage.error('请上传200MB以内的文件!')
-                 return false
+                ElMessage.error('请上传200MB以内的文件!')
+                return false
             }
             return true
         }
 
-        const onUploadSuccess = (res,up,ups)=>{
-            if(res.success){
+        const onUploadSuccess = (res, up, ups) => {
+            if (res.success) {
                 ElMessage.success(`成功导入${res.data}项`)
-            }else{
+            } else {
                 ElMessage.error('数据导入失败')
             }
-            if(props.reload){props.reload()}
+            if (props.reload) { props.reload() }
             close()
         }
 

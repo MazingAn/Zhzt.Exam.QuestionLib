@@ -3,6 +3,7 @@ using SqlSugar.Extension.DomainHelper;
 using SqlSugar.Extensions.CodeFirst;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainService;
+using Zhzt.Exam.StaticFileSystem;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Host.ConfigureAppConfiguration((context, builder) =>
     var c = builder.Build();
     builder.AddNacosV2Configuration(c.GetSection("NacosConfig"));
 });
+
+// 增加静态文件目录配置
+builder.Services.AddFileSystemConfig(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

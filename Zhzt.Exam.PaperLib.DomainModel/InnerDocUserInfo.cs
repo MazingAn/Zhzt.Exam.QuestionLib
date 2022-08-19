@@ -8,9 +8,8 @@ namespace Zhzt.Exam.PaperLib.DomainModel
 {
     public class InnerDocUserInfo
     {
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
 
-        public string UserId { get; set; } = null!;
-
+        public string UserId { get; set; } = string.Empty;
     }
 }

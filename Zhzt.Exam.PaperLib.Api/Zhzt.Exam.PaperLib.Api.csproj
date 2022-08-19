@@ -5,8 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	  <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
@@ -16,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainInterface\Zhzt.Exam.PaperLib.DomainInterface.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainService\Zhzt.Exam.PaperLib.DomainService.csproj" />
   </ItemGroup>
 

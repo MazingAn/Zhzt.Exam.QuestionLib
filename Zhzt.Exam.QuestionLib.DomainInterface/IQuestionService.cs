@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SqlSugar.Extension.DomainHelper;
+using System.Linq.Expressions;
 using Zhzt.Exam.QuestionLib.DomainModel;
 
 namespace Zhzt.Exam.QuestionLib.DomainInterface
@@ -12,5 +13,8 @@ namespace Zhzt.Exam.QuestionLib.DomainInterface
 
         // 批量导入试题
         public int Import(long questionTypeId, IFormFile upFile);
+
+        // 随机在过滤范围内获取指定数量的数据
+        public IEnumerable<Question> GetRandomQuestions(Expression<Func<Question, bool>> filter, int size);
     }
 }

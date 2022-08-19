@@ -8,6 +8,9 @@ import Judge from '../views/Judge.vue'
 import BlankFill from '../views/BlankFill.vue'
 import QuesAnswer from '../views/QuesAnswer.vue'
 import Paper from '../views/Paper.vue'
+import NounParsing from '../views/NounParsing.vue'
+import ComputeQues from '../views/ComputeQues.vue'
+import EssayQues from '../views/EssayQues.vue'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -46,6 +49,21 @@ const router = createRouter({
             path: '/quesAnswer',
             name: 'quesAnswer',
             component: QuesAnswer
+        },
+        {
+            path: '/computeQues',
+            name: 'conputeQues',
+            component: ComputeQues
+        },
+        {
+            path: '/essayQues',
+            name: 'essayQues',
+            component: EssayQues
+        },
+        {
+            path: '/nounParsing',
+            name: 'nounParsing',
+            component: NounParsing
         },
         {
             path: '/paper',

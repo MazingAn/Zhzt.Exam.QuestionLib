@@ -12,7 +12,7 @@ namespace MongoDb.Extensions.DomainHelper
 {
     public class BaseService<T> : IBaseService<T> where T : BaseModel
     {
-        private readonly IMongoCollection<T> _collection;
+        protected readonly IMongoCollection<T> _collection;
 
         public BaseService(
             IOptions<MongoDbDataSettings> databaseSettings)
@@ -83,6 +83,16 @@ namespace MongoDb.Extensions.DomainHelper
         public IEnumerable<T> GetAll()
         {
             return _collection.Find(_ => true).ToList();
+        }
+
+        /// <summary>
+        /// 根据ID获取一个
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T GetOneById(string id)
+        {
+            return _collection.Find(x => x.Id == id).First();
         }
 
         /// <summary>

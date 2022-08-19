@@ -12,12 +12,16 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
     {
         private readonly ILogger<QuestionController> _logger;
         private readonly IQuestionService _questionService;
+        private readonly IQuestionTypeService _questionTypeService;
 
-        public QuestionController(ILogger<QuestionController> logger, IQuestionService questionService)
+        public QuestionController(ILogger<QuestionController> logger, IQuestionService questionService, IQuestionTypeService questionTypeService)
         {
             _logger = logger;
             _questionService = questionService;
+            _questionTypeService = questionTypeService;
         }
+
+
 
         /// <summary>
         /// 创建对象
@@ -174,7 +178,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         {
             try
             {
-                var data = _questionService?.Filter<Question>(filterObj.GetFilterExpression());
+                var data = _questionService?.Filter<Question>(filterObj.GetFilterExpression(_questionTypeService));
                 _questionService?.AttachQuestionType(data);
                 return HttpJsonResponse.SuccessResult(data);
             }
@@ -195,7 +199,7 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             // FIXME 请根据需求自行创建QuestionFilter对象
             try
             {
-                var data = _questionService?.FilterPage<Question>(filter.PageIndex, filter.PageSize, filter.GetFilterExpression());
+                var data = _questionService?.FilterPage<Question>(filter.PageIndex, filter.PageSize, filter.GetFilterExpression(_questionTypeService));
                 _questionService?.AttachQuestionType(data?.PageData);
                 return HttpJsonResponse.SuccessResult(data);
             }
@@ -229,11 +233,11 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
         /// </summary>
         /// <returns>数量</returns>
         [HttpPost("count/filter")]
-        public HttpJsonResponse CounAll(QuestionFilter filter)
+        public HttpJsonResponse CountAll(QuestionFilter filter)
         {
             try
             {
-                int? count = _questionService?.Count<Question>(filter.GetFilterExpression());
+                int? count = _questionService?.Count<Question>(filter.GetFilterExpression(_questionTypeService));
                 return HttpJsonResponse.SuccessResult(count);
             }
             catch
@@ -241,5 +245,20 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("查询失败");
             }
         }
+
+
+        [HttpGet("random")]
+        public HttpJsonResponse FilterAndRandomGet([FromQuery] QuestionFilter filter)
+        {
+            try
+            {
+                var data =_questionService?.GetRandomQuestions(filter.GetFilterExpression(_questionTypeService), filter.PageSize);
+                return HttpJsonResponse.SuccessResult(data);
+            }
+            catch(Exception err)
+            {
+                return HttpJsonResponse.FailedResult(err.Message);
+            }
+         }
     }
 }

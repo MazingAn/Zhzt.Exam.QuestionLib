@@ -434,12 +434,21 @@ namespace SqlSugar.Extension.DomainHelper
             where ChildrenT : TreeModel<ChildrenT>, new()
         {
             var rootValue = _client?.Queryable<ChildrenT>().InSingle(id);
-            //var tree = _client?.Queryable<ChildrenT>().ToChildList(it => it.ParentId, id); //返回结构不一样 list结构
             return _client?.Queryable<ChildrenT>()
                 .ToTree(it => it.Child, it => it.ParentId, rootValue?.ParentId)
                 .Single(it => it.Id == id);
         }
 
+        /// <summary>
+        /// 获取所有下级（包含下级的下级）
+        /// </summary>
+        /// <typeparam name="TreeT"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<ChildrenT> GetAllChildren<ChildrenT>(long id) where ChildrenT : TreeModel<ChildrenT>, new()
+        {
+            return _client?.Queryable<ChildrenT>().ToChildList(it => it.ParentId, id) ?? new();
+        }
         #endregion 子级查询
     }
 }

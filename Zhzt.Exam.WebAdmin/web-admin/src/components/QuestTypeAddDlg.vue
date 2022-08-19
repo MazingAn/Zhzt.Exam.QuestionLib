@@ -5,7 +5,7 @@
                 <el-input type="text" v-model="ruleForm.name"></el-input>
             </el-form-item>
             <el-form-item label="上级科目" prop="parentId">
-                <el-cascader v-model="ruleForm.parentId" :options="allQuestionTypes" :props="cascaderProps" clearable />
+                <el-cascader placeholder="选择科目" v-model="ruleForm.parentId" :options="allQuestionTypes" :props="cascaderProps" clearable />
             </el-form-item>
         </el-form>
         <template #footer>

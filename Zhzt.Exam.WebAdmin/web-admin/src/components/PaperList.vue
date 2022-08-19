@@ -19,50 +19,55 @@
     </div>
     <el-table :data="tableData" style="width: 100%" :border="true" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" v-if="props.multiDeleteable" />
-        <el-table-column label="试卷名称" prop="name"/>
-        <el-table-column label="所属科目" width="180">
+        <el-table-column label="试卷名称">
+            <template #default="scope">
+                <span class="title">{{ scope.row?.name }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column label="所属科目" width="200px">
             <template #default="scope">
                 <el-tag>{{ scope.row.subject?.name ?? '未知科目' }}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="单选题数量" width="180">
+        <el-table-column label="单选题数量" width="150px">
             <template #default="scope">
                 <el-tag>
                     {{scope.row.pagerConfig.singleChoiceCount}}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="多选题数量" width="180">
+        <el-table-column label="多选题数量" width="150px">
             <template #default="scope">
                 <el-tag>
                 {{scope.row.pagerConfig.multiChoiceCount}}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="判断题数量" width="180">
+        <el-table-column label="判断题数量" width="100px">
             <template #default="scope">
                 <el-tag>
                 {{scope.row.pagerConfig.judgeCount}}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="填空题数量" width="180">
+        <el-table-column label="填空题数量" width="150px">
             <template #default="scope">
                 <el-tag>
                 {{scope.row.pagerConfig.blankFillCount}}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="问答题数量" width="180">
+        <el-table-column label="问答题数量" width="150px">
             <template #default="scope">
                 <el-tag>
                 {{scope.row.pagerConfig.quesAnswerCount}}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="操作" width="260" v-if="props.editable">
+        <el-table-column label="操作" width="200px" v-if="props.editable">
             <template #default="scope">
                 <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row)">修改</a>
+                <a style="cursor: pointer; margin-right: 10px" :href="'/api/paperlib/paper/download/'+scope.row.id">下载</a>
                 <el-popconfirm title="确定删除吗？" @confirm="handleDeleteOne(scope.row.id)">
                     <template #reference>
                         <a style="cursor: pointer">删除</a>
@@ -156,7 +161,7 @@ export default {
 
         // 执行删除 和题型无关可以直接在这里统一写一个删除方法
         const handleDeleteOne = (id) => {
-            axios.delete(`/questionlib/question/delete?id=${id}`)
+            axios.delete(`/paperlib/paper/delete?id=${id}`)
                 .then(res => {
                     ElMessage.success("删除数据成功");
                     filterPapers();
@@ -217,3 +222,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.title{
+    font-size: 1.2em;
+    font-weight: 200;
+}
+</style>

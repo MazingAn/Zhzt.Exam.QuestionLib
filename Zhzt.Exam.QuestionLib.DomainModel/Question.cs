@@ -11,7 +11,7 @@ namespace Zhzt.Exam.QuestionLib.DomainModel
         /// <summary>
         /// 题干
         /// </summary>
-        [SugarColumn(IsNullable = false)]
+        [SugarColumn(IsNullable = false, ColumnDataType = "text")]
         public string QuestionBody { get; set; } = string.Empty;
 
         /// <summary>

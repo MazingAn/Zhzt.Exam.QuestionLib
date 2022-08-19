@@ -7,12 +7,13 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Zhzt.Exam.PaperLib.Api/Zhzt.Exam.PaperLib.Api.csproj", "Zhzt.Exam.PaperLib.Api/"]
-COPY ["Zhzt.Exam.PagerLib.DomainModel/Zhzt.Exam.PaperLib.DomainModel.csproj", "Zhzt.Exam.PagerLib.DomainModel/"]
+COPY ["Zhzt.Exam.PaperLib.DomainInterface/Zhzt.Exam.PaperLib.DomainInterface.csproj", "Zhzt.Exam.PaperLib.DomainInterface/"]
 COPY ["MongoDb.Extensions.DomainHelper/MongoDb.Extensions.DomainHelper.csproj", "MongoDb.Extensions.DomainHelper/"]
 COPY ["MongoDb.Extensions.Options/MongoDb.Extensions.Options.csproj", "MongoDb.Extensions.Options/"]
 COPY ["Netcore.Extensions.WebModels/Netcore.Extensions.WebModels.csproj", "Netcore.Extensions.WebModels/"]
-COPY ["Zhzt.Exam.PaperLib.DomainInterface/Zhzt.Exam.PaperLib.DomainInterface.csproj", "Zhzt.Exam.PaperLib.DomainInterface/"]
+COPY ["Zhzt.Exam.PaperLib.DomainModel/Zhzt.Exam.PaperLib.DomainModel.csproj", "Zhzt.Exam.PaperLib.DomainModel/"]
 COPY ["Zhzt.Exam.PaperLib.DomainService/Zhzt.Exam.PaperLib.DomainService.csproj", "Zhzt.Exam.PaperLib.DomainService/"]
+COPY ["MicroService.NacosDiscover.Helper/MicroService.NacosDiscover.Helper.csproj", "MicroService.NacosDiscover.Helper/"]
 RUN dotnet restore "Zhzt.Exam.PaperLib.Api/Zhzt.Exam.PaperLib.Api.csproj"
 COPY . .
 WORKDIR "/src/Zhzt.Exam.PaperLib.Api"

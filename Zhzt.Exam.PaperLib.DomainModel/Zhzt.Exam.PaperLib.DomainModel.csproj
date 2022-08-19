@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  
   <ItemGroup>
     <ProjectReference Include="..\MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj" />
   </ItemGroup>

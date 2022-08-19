@@ -240,6 +240,9 @@ namespace SqlSugar.Extension.DomainHelper
         TreeT? GetByIdTree<TreeT>(long id)
             where TreeT : TreeModel<TreeT>, new();
 
+        IEnumerable<TreeT> GetAllChildren<TreeT>(long id)
+            where TreeT : TreeModel<TreeT>, new();
+
         #endregion 子级查询
     }
 }

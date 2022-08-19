@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.5.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Amz.NPOIWord.Extension\Amz.NPOIWord.Extension.csproj" />
+    <ProjectReference Include="..\MicroService.NacosDiscover.Helper\MicroService.NacosDiscover.Helper.csproj" />
     <ProjectReference Include="..\MongoDb.Extensions.DomainHelper\MongoDb.Extensions.DomainHelper.csproj" />
-    <ProjectReference Include="..\Zhzt.Exam.PagerLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.PaperLib.Configuration\Zhzt.Exam.PaperLib.Configuration.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainInterface\Zhzt.Exam.PaperLib.DomainInterface.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
   </ItemGroup>
 
 </Project>

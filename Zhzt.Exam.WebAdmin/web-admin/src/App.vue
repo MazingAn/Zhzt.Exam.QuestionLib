@@ -39,6 +39,9 @@
               <el-menu-item index="/multiChoice">多项选择题</el-menu-item>
               <el-menu-item index="/judge">判断题</el-menu-item>
               <el-menu-item index="/blankFill">填空题</el-menu-item>
+              <el-menu-item index="/computeQues">计算题</el-menu-item>
+              <el-menu-item index="/nounParsing">名词解释题</el-menu-item>
+              <el-menu-item index="/essayQues">论述题</el-menu-item>
               <el-menu-item index="/quesAnswer">问答题</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>

@@ -1,4 +1,5 @@
 ﻿using MongoDb.Extensions.DomainHelper;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Zhzt.Exam.PaperLib.DomainModel
 {
@@ -8,7 +9,7 @@ namespace Zhzt.Exam.PaperLib.DomainModel
         public string Name { get; set; } = string.Empty;
 
         // 试卷作者信息
-        public InnerDocUserInfo Creator { get; set; } = null!;
+        public InnerDocUserInfo? Creator { get; set; }
 
         // 所属科目和包含科目的信息
         public InnerDocSubject Subject { get; set; } = null!;
@@ -33,6 +34,11 @@ namespace Zhzt.Exam.PaperLib.DomainModel
         //问答题列表
         public IEnumerable<InnerDocPaperQuestion> QuesAnswerQuestions { get; set; } = null!;
 
+        ///试卷路径
+        public string? PaperFilePath { get; set; } = string.Empty;
 
+        //是否重新生成试卷
+        [BsonIgnore]
+        public bool ReGenerateQuestions { get; set; } = false;
     }
 }

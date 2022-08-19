@@ -9,6 +9,8 @@ namespace MongoDb.Extensions.DomainHelper
     {
         public IEnumerable<T> GetAll();
 
+        public T GetOneById(string id);
+
         public IEnumerable<T> FilterAll(FilterBase filter);
 
         public PageResult<T> GetPaged(int pageIndex, int pageSize);

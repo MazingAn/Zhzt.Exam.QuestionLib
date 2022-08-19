@@ -5,7 +5,7 @@
                 <el-input type="textarea" v-model="ruleForm.questionBody"></el-input>
             </el-form-item>
             <el-form-item label="所属科目" prop="questionTypeId">
-                <el-cascader v-model="ruleForm.questionTypeId" :options="allQuestionTypes" :props="cascaderProps"
+                <el-cascader placeholder="选择科目" v-model="ruleForm.questionTypeId" :options="allQuestionTypes" :props="cascaderProps"
                     clearable />
             </el-form-item>
             <el-form-item label="正确答案" prop="rightAnswer">

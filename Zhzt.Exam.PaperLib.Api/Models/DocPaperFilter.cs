@@ -1,8 +1,6 @@
 ﻿using AutoFilterer.Attributes;
 using AutoFilterer.Enums;
 using AutoFilterer.Types;
-using System.Linq.Expressions;
-using Zhzt.Exam.PaperLib.DomainModel;
 
 namespace Zhzt.Exam.PaperLib.Api.Models
 {

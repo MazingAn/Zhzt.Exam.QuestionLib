@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Netcore.Extensions.WebModels;
 using Zhzt.Exam.PaperLib.Api.Models;
+using Zhzt.Exam.PaperLib.Configuration;
 using Zhzt.Exam.PaperLib.DomainInterface;
 using Zhzt.Exam.PaperLib.DomainModel;
 
@@ -11,11 +13,15 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
     [Route("api/paperlib/[controller]")]
     public class PaperController : ControllerBase
     {
-        private readonly IPaperService? _paperService;
+        private readonly IPaperService _paperService;
+        private readonly PaperGenerateSettings _paperGenerateSettings;
+        private readonly IPaperGenerate _paperGenerator;
 
-        public PaperController(IPaperService paperService)
+        public PaperController(IPaperService paperService, IPaperGenerate paperGenerator, IOptions<PaperGenerateSettings> generateConfig)
         {
             _paperService = paperService;
+            _paperGenerator = paperGenerator;
+            _paperGenerateSettings = generateConfig.Value;
         }
 
         /// <summary>
@@ -28,14 +34,17 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
         {
             try
             {
-                var data = _paperService?.Create(paper);
+                var genPaper = _paperService.GenerateQuestions(paper);
+                string paperFilePath = _paperGenerator.GeneratePaper(genPaper) ?? string.Empty;
+                genPaper.PaperFilePath = paperFilePath;
+                var data = _paperService?.Create(genPaper);
                 return data is null ?
                     HttpJsonResponse.FailedResult("创建失败") :
                     HttpJsonResponse.SuccessResult(data);
             }
             catch
             {
-                return HttpJsonResponse.FailedResult("创建失败");
+                return HttpJsonResponse.FailedResult("创建失败,请检查是否有足够的题目");
             }
         }
 
@@ -49,7 +58,10 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
         {
             try
             {
-                var data = _paperService?.Update(paper);
+                var genPaper = _paperService.GenerateQuestions(paper);
+                string paperFilePath = _paperGenerator.GeneratePaper(genPaper) ?? string.Empty;
+                genPaper.PaperFilePath = paperFilePath;
+                var data = _paperService.Update(genPaper);
                 return HttpJsonResponse.SuccessResult(data);
             }
             catch
@@ -215,5 +227,24 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
                 return HttpJsonResponse.FailedResult("查询失败");
             }
         }
+
+        [HttpGet("download/{id}")]
+        public FileResult? DownloadFile([FromRoute] string id)
+        {
+            var paper = _paperService.GetOneById(id);
+            string path = Path.Combine(_paperGenerateSettings.BaseDir, paper.PaperFilePath ?? "");
+            if (System.IO.File.Exists(path))
+            {
+                var stream = System.IO.File.OpenRead(path);
+                var result = File(stream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", $"{paper.Name}.docx");
+                stream.Close();
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        } 
+
     }
 }

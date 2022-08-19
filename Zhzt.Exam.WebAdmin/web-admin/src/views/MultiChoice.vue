@@ -1,6 +1,6 @@
 <template>
     <el-card>
-        <QuesList ref="quesListRef" :hasHeader="true" :tableTitle="'多项选择题列表'" :pageSize="15" :questionClass="2"
+        <QuesList ref="quesListRef" :hasHeader="true" :tableTitle="'多项选择题题目列表'" :pageSize="10" :questionClass="2"
             :editable="true" :importable="true" :createable="true" :doEdit="handleEdit" :doCreate="handleCreate" 
             :allQuestionTypes="allQuestionTypes" :multiDeleteable="true"/>
     </el-card>

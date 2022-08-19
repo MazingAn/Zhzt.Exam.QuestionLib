@@ -35,7 +35,11 @@
                 }}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="questionBody" label="题目" />
+        <el-table-column label="题目">
+            <template #default="scope">
+                <p style="line-height: 1;" v-html="scope.row.questionBody"></p>
+            </template>
+        </el-table-column>
         <el-table-column label="操作" width="260" v-if="props.editable">
             <template #default="scope">
                 <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row)">修改</a>

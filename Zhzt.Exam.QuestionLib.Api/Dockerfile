@@ -13,6 +13,7 @@ COPY ["Netcore.Extensions.WebModels/Netcore.Extensions.WebModels.csproj", "Netco
 COPY ["SqlSugar.Extensions.CodeFirst/SqlSugar.Extensions.CodeFirst.csproj", "SqlSugar.Extensions.CodeFirst/"]
 COPY ["Zhzt.Exam.QuestionLib.DomainModel/Zhzt.Exam.QuestionLib.DomainModel.csproj", "Zhzt.Exam.QuestionLib.DomainModel/"]
 COPY ["Zhzt.Exam.QuestionLib.DomainService/Zhzt.Exam.QuestionLib.DomainService.csproj", "Zhzt.Exam.QuestionLib.DomainService/"]
+COPY ["Zhzt.Exam.FileSystem/Zhzt.Exam.StaticFileSystem.csproj", "Zhzt.Exam.FileSystem/"]
 RUN dotnet restore "Zhzt.Exam.QuestionLib.Api/Zhzt.Exam.QuestionLib.Api.csproj"
 COPY . .
 WORKDIR "/src/Zhzt.Exam.QuestionLib.Api"
