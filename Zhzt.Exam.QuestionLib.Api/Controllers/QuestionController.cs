@@ -21,8 +21,6 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             _questionTypeService = questionTypeService;
         }
 
-
-
         /// <summary>
         /// 创建对象
         /// </summary>
@@ -60,8 +58,9 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                     HttpJsonResponse.FailedResult("创建失败") :
                     HttpJsonResponse.SuccessResult(data);
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return HttpJsonResponse.FailedResult("创建失败");
             }
         }
@@ -203,8 +202,9 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
                 _questionService?.AttachQuestionType(data?.PageData);
                 return HttpJsonResponse.SuccessResult(data);
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return HttpJsonResponse.FailedResult("执行数据筛选失败");
             }
 
@@ -246,7 +246,11 @@ namespace Zhzt.Exam.QuestionLib.Api.Controllers
             }
         }
 
-
+        /// <summary>
+        /// 获取随机的题目
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [HttpGet("random")]
         public HttpJsonResponse FilterAndRandomGet([FromQuery] QuestionFilter filter)
         {

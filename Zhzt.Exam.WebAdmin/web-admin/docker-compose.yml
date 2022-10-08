@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  zhzt.exam.frontend.admin:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/data/admin
+    ports:
+      - "80:80"
+
+  zhzt.exam.static.video:
+    image: nginx
+    volumes:
+      - ./nginx-static.conf:/etc/nginx/conf.d/default.conf
+      - /c/microclassvideo/static:/static
+    ports:
+      - "9999:80"
+
+  zhzt.exam.static.document:
+    image: nginx
+    volumes:
+      - ./nginx-static.conf:/etc/nginx/conf.d/default.conf
+      - /c/documentlib/static:/static
+    ports:
+      - "9998:80"

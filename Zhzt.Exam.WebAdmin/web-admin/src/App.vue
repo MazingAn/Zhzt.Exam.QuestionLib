@@ -5,10 +5,10 @@
         <!--系统名称+logo-->
         <div class="head">
           <div>
-            <el-icon :size="22" color="#FFFFFF">
+            <!-- <el-icon :size="22" color="#FFFFFF">
               <SetUp />
-            </el-icon>
-            <span>题库管理系统</span>
+            </el-icon> -->
+            <span>后台管理系统</span>
           </div>
         </div>
         <!--一条为了美观的线条-->
@@ -51,6 +51,32 @@
             </el-icon>
             <template #title>试卷管理</template>
           </el-menu-item>
+          <el-sub-menu index="2">
+            <template #title>
+              <el-icon>
+                <Reading />
+              </el-icon>
+              <span>微课管理</span>
+            </template>
+            <el-menu-item-group>
+              <template #title><span>微课详情</span></template>
+              <el-menu-item index="/videoCategory">分类配置</el-menu-item>
+              <el-menu-item index="/microClass">微课视频</el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <el-sub-menu index="3">
+            <template #title>
+              <el-icon>
+                <Document />
+              </el-icon>
+              <span>资料管理</span>
+            </template>
+            <el-menu-item-group>
+              <template #title><span>资料详情</span></template>
+              <el-menu-item index="/documentCategory">资料分类</el-menu-item>
+              <el-menu-item index="/document">资料内容</el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
         </el-menu>
       </el-aside>
       <el-container class="content">

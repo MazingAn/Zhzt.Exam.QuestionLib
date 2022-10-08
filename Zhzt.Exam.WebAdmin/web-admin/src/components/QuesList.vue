@@ -52,7 +52,7 @@
         </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next" class="center-pagination" v-model:currentPage="pageIndex"
-        v-model:page-size="pageSize" :total="totalCount" :pageSize="pageSize" @current-change="handlePageChange" />
+     :total="totalCount" :pageSize="pageSize" @current-change="handlePageChange" />
     <QuesImptDlg ref="quesImportorRef" :reload="filterQuestions" :allQuestionTypes="props.allQuestionTypes" />
 </template>
 

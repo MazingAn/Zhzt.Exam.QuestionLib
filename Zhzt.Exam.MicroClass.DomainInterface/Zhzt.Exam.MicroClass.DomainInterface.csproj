@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SqlSugar.Extension.DomainHelper\SqlSugar.Extensions.DomainHelper.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.MicroClass.DomainModel\Zhzt.Exam.MicroClass.DomainModel.csproj" />
+  </ItemGroup>
+
+</Project>

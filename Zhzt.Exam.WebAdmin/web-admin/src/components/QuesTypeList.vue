@@ -39,7 +39,7 @@
         </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next" class="center-pagination" v-model:currentPage="pageIndex"
-        v-model:page-size="pageSize" :total="totalCount" :pageSize="pageSize" @current-change="handlePageChange" />
+        v-model:page-size="pageSize" :total="totalCount" @current-change="handlePageChange" />
     <QuestTypeAddDlg ref="quesTypeAddDlgRef" :type="editType" :reload="reload" :allQuestionTypes="allQuestionTypes" />
 </template>
 

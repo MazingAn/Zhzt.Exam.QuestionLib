@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zhzt.Exam.Auth.DtoHelper\Zhzt.Exam.Auth.DomainDtoHelper.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.User.DomainModel\Zhzt.Exam.Auth.DomainModel.csproj" />
+    <ProjectReference Include="..\Zhzt.Exam.User.Interface\Zhzt.Exam.Auth.DomainInterface.csproj" />
+  </ItemGroup>
+
+</Project>

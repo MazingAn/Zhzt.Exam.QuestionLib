@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import Index from '../views/Index.vue'
+import Login from '../views/Login.vue'
 import QuesType from '../views/QuesType.vue'
 import SingleChoice from '../views/SingleChoice.vue'
 import MultiChoice from '../views/MultiChoice.vue'
@@ -11,6 +12,10 @@ import Paper from '../views/Paper.vue'
 import NounParsing from '../views/NounParsing.vue'
 import ComputeQues from '../views/ComputeQues.vue'
 import EssayQues from '../views/EssayQues.vue'
+import VideoCategory from '../views/VideoCategory.vue' 
+import MicroClass from '../views/MicroClass.vue'
+import Document from "../views/Document.vue"
+import DocumentCategory from '../views/DocumentCategory.vue'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -19,6 +24,11 @@ const router = createRouter({
             path: '/',
             name: 'index',
             component: Index
+        },
+        {
+            path : '/login',
+            name: 'login',
+            component: Login
         },
         {
             path: '/quesType',
@@ -69,6 +79,26 @@ const router = createRouter({
             path: '/paper',
             name: 'paper',
             component: Paper
+        },
+        {
+            path: '/videoCategory',
+            name: 'videoCategory',
+            component: VideoCategory
+        },
+        {
+            path: '/microclass',
+            name: 'microclass',
+            component: MicroClass
+        },
+        {
+            path: '/document',
+            name: 'document',
+            component: Document
+        },
+        {
+            path: '/documentCategory',
+            name: 'documentCategory',
+            component: DocumentCategory
         }
     ]
 })

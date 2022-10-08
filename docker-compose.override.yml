@@ -13,8 +13,28 @@ services:
     ports:
       - "80"
 
-
   zhzt.exam.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  zhzt.exam.auth.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  zhzt.exam.microclasslib.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+
+  zhzt.exam.documentlib.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

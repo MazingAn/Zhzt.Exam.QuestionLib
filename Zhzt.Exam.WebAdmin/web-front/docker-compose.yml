@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  zhzt.exam.frontend.admin:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/data/admin
+    ports:
+      - "80:80"

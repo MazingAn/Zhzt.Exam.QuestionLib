@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Nacos;
@@ -20,6 +21,12 @@ builder.Host.ConfigureAppConfiguration((context, builder) =>
     builder.AddNacosV2Configuration(c.GetSection("NacosConfig"));
 });
 
+builder.Services.Configure<FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +36,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/questionlib/swagger/v1/swagger.json", "QuestionLib API");
         c.SwaggerEndpoint("/paperlib/swagger/v1/swagger.json", "PaperLib API");
+        c.SwaggerEndpoint("/authcenter/swagger/v1/swagger.json", "UserLib API");
+        c.SwaggerEndpoint("/microclasslib/swagger/v1/swagger.json", "MicroClassLib API");
+        c.SwaggerEndpoint("/documentlib/swagger/v1/swagger.json", "DocumentLib API");
     });
 }
 

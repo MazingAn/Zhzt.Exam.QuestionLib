@@ -9,6 +9,9 @@
 	  <None Remove=".DS_Store" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+	<ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
 	</ItemGroup>
 	<ItemGroup>

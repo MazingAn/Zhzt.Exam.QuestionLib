@@ -3,9 +3,6 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
-      "composeLaunchAction": "LaunchBrowser",
-      "composeLaunchServiceName": "zhzt.exam.gateway",
-      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "zhzt.exam.gateway": "StartDebugging",
         "zhzt.exam.paperlib.api": "StartDebugging",

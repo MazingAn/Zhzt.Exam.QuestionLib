@@ -34,10 +34,14 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
         {
             try
             {
+                // 构造
                 var genPaper = _paperService.GenerateQuestions(paper);
-                string paperFilePath = _paperGenerator.GeneratePaper(genPaper) ?? string.Empty;
-                genPaper.PaperFilePath = paperFilePath;
-                var data = _paperService?.Create(genPaper);
+                // 保存
+                genPaper = _paperService?.Create(genPaper);
+                // 生成试卷文件
+                string paperFilePath = _paperGenerator.GeneratePaper(genPaper!) ?? string.Empty;
+                genPaper!.PaperFilePath = paperFilePath;
+                var data = _paperService?.Update(genPaper);
                 return data is null ?
                     HttpJsonResponse.FailedResult("创建失败") :
                     HttpJsonResponse.SuccessResult(data);
@@ -235,10 +239,7 @@ namespace Zhzt.Exam.PaperLib.Api.Controllers
             string path = Path.Combine(_paperGenerateSettings.BaseDir, paper.PaperFilePath ?? "");
             if (System.IO.File.Exists(path))
             {
-                var stream = System.IO.File.OpenRead(path);
-                var result = File(stream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", $"{paper.Name}.docx");
-                stream.Close();
-                return result;
+                return PhysicalFile(path, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", $"{paper.Name}.docx");
             }
             else
             {

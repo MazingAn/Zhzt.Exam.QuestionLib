@@ -13,6 +13,8 @@ const cache = {
     queryQuestionClassName : (id)=>{
         return questionClassMap[id] ?? '未知'
     },
+    videoBaseUrl : 'http://127.0.0.1:9999/',
+    docBaseUrl : 'http://127.0.0.1:9998/',
 }
 
 export default cache

@@ -11,8 +11,8 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - /home/questionlib/static:/app/static
-    command: "dotnet /app/zhzt.exam.questionlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8081"
+      - /c/questionlib/static:/app/static
+    command: "dotnet /app/Zhzt.Exam.QuestionLib.Api.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8081"
 
   zhzt.exam.paperlib.api:
     image: ${DOCKER_REGISTRY-}zhztexampaperlibapi
@@ -21,9 +21,49 @@ services:
       dockerfile: Zhzt.Exam.PaperLib.Api/Dockerfile
       args:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
+    volumes:
+      - /c/questionlib/papers:/app/papers
     ports:
       - "8082:80"
-    command: "dotnet /app/zhzt.exam.paperlib.api.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8082"
+    command: "dotnet /app/Zhzt.Exam.PaperLib.Api.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8082"
+    
+  zhzt.exam.auth.api:
+    image: ${DOCKER_REGISTRY-}zhztexamauthapi
+    build:
+      context: .
+      dockerfile: Zhzt.Exam.Auth.Api/Dockerfile
+      args:
+        - ASPNETCORE_ENVIRONMENT_ARG=Debug
+    ports:
+      - "8083:80"
+    command: "dotnet /app/Zhzt.Exam.Auth.Api.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8083"
+    
+  zhzt.exam.microclasslib.api:
+    image: ${DOCKER_REGISTRY-}zhztexammicroclasslibapi
+    build:
+      context: .
+      dockerfile: Zhzt.Exam.MicroClassLib.Api/Dockerfile
+      args:
+        - ASPNETCORE_ENVIRONMENT_ARG=Debug
+    ports:
+      - "8084:80"
+    volumes:
+      - /c/microclassvideo/static:/app/static
+    command: "dotnet /app/Zhzt.Exam.MicroClassLib.Api.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8084"
+
+  zhzt.exam.documentlib.api:
+    image: ${DOCKER_REGISTRY-}zhztexamdocumentlibapi
+    build:
+      context: .
+      dockerfile: Zhzt.Exam.DocumentLib.Api/Dockerfile
+      args:
+        - ASPNETCORE_ENVIRONMENT_ARG=Debug
+    ports:
+      - "8085:80"
+    volumes:
+      - /c/documentlib/static:/app/static
+    command: "dotnet /app/Zhzt.Exam.DocumentLib.Api.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8084"
+
 
   zhzt.exam.gateway:
     image: ${DOCKER_REGISTRY-}zhztexamgateway
@@ -34,4 +74,4 @@ services:
         - ASPNETCORE_ENVIRONMENT_ARG=Debug
     ports:
       - "8080:80"
-    command: "dotnet /app/zhzt.exam.gateway.dll --urls=http://*:80 nacos:ip=192.168.10.115 nacos:port=8080"
+    command: "dotnet /app/Zhzt.Exam.Gateway.dll urls=http://*:80 nacos:ip=102.168.10.107 nacos:port=8080"

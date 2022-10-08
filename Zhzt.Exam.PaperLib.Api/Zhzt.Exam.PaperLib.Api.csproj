@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SqlSugar.Extensions.CodeFirst\SqlSugar.Extensions.CodeFirst.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainInterface\Zhzt.Exam.PaperLib.DomainInterface.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainModel\Zhzt.Exam.PaperLib.DomainModel.csproj" />
     <ProjectReference Include="..\Zhzt.Exam.PaperLib.DomainService\Zhzt.Exam.PaperLib.DomainService.csproj" />

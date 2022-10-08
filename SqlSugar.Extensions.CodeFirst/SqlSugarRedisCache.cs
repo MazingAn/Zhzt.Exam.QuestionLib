@@ -23,12 +23,14 @@ namespace SqlSugar.Extensions.CodeFirst
 
         public void Add<V>(string key, V value)
         {
-            _service.Set(key, value);
+            if(value != null)
+                _service.Set(key, value);
         }
 
         public void Add<V>(string key, V value, int cacheDurationInSeconds)
         {
-            _service.Set(key, value, cacheDurationInSeconds);
+            if(value != null)
+                _service.Set(key, value, cacheDurationInSeconds);
         }
 
         public bool ContainsKey<V>(string key)

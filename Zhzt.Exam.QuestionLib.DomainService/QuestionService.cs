@@ -9,12 +9,14 @@ using NPOI.XSSF.UserModel;
 using SqlSugar;
 using SqlSugar.Extension.DomainHelper;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using Zhzt.Exam.QuestionLib.DomainInterface;
 using Zhzt.Exam.QuestionLib.DomainModel;
 using Zhzt.Exam.StaticFileSystem;
+using Color = System.Drawing.Color;
 
 namespace Zhzt.Exam.QuestionLib.DomainService
 {
@@ -63,7 +65,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
             if (question != null)
             {
                 var cachedQuestionType = _client?.DataCache.Get<QuestionType>(question.QuestionTypeId.ToString());
-                if(cachedQuestionType != null)
+                if (cachedQuestionType != null)
                 {
                     question.QuestionType = cachedQuestionType;
                 }
@@ -75,6 +77,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                     {
                         questionType.Child = questionTypeChilds ?? new();
                         _client?.DataCache.Add(question.QuestionTypeId.ToString(), questionType);
+
                     }
                     question.QuestionType = questionType;
                 }
@@ -93,11 +96,11 @@ namespace Zhzt.Exam.QuestionLib.DomainService
             {
                 var result = _client?.Queryable<Question>().Where(filter)
                     .Take(size).OrderBy(st => SqlFunc.GetRandom()).ToList();
-                if(result?.Count < size)
+                if (result?.Count < size)
                 {
                     throw new Exception("题库数量不足，无法完成抽取！");
                 }
-                if(result != null)
+                if (result != null)
                 {
                     AttachQuestionType(result);
                     return result;
@@ -575,7 +578,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                 System.IO.Directory.CreateDirectory(_staticFileSettings.StaticServerRoot);
             }
             List<string> lines = new List<string>();
-            using (WordprocessingDocument doc = WordprocessingDocument.Open(filePath, true))
+            using (WordprocessingDocument doc = WordprocessingDocument.Open(filePath, false))
             {
                 Body body = doc.MainDocumentPart!.Document.Body!;
                 foreach (var paragraph in body.Elements<Paragraph>())
@@ -590,7 +593,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                                 builder.Append(text.Text);
                             }
                             //嵌入对象的导入
-                            else if (openXmlElement is EmbeddedObject emb) 
+                            else if (openXmlElement is EmbeddedObject emb)
                             {
                                 foreach (OpenXmlElement element in emb.Elements())
                                 {
@@ -605,11 +608,8 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                                             var part = doc.MainDocumentPart.GetPartById(imgData.RelationshipId!);
                                             if (part.ContentType == "image/x-wmf")
                                             {
-                                                Stream imgstream = part.GetStream();
-                                                Bitmap bitmap = new Bitmap(imgstream);
-                                                bitmap.Save(imgUrl, System.Drawing.Imaging.ImageFormat.Png);
-                                                bitmap.Dispose();
-                                                imgstream.Close();
+                                                using var stream = part.GetStream();
+                                                SaveWmfStream(stream, imgUrl);
                                                 builder.Append($"<img src=\"{fileName}\"/>");
                                             }
                                         }
@@ -620,7 +620,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                             // 正常嵌入的图片
                             else if (openXmlElement is Drawing drawing)
                             {
-                                DocumentFormat.OpenXml.Drawing.GraphicData gdata = null!;
+                                DocumentFormat.OpenXml.Drawing.GraphicData? gdata = null!;
                                 if (drawing.Inline != null)
                                 {
                                     var inline = drawing.Inline;
@@ -629,7 +629,7 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                                 }
                                 else
                                 {
-                                    foreach (var drawEle in drawing.Anchor.ChildElements)
+                                    foreach (var drawEle in drawing.Anchor!.ChildElements)
                                     {
                                         if (drawEle is DocumentFormat.OpenXml.Drawing.Graphic gp)
                                         {
@@ -641,16 +641,21 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                                 if (gdata != null)
                                 {
                                     var pic = gdata.GetFirstChild<DocumentFormat.OpenXml.Drawing.Pictures.Picture>();
-                                    var embed = pic.BlipFill.Blip.Embed.Value!;
+                                    var embed = pic?.BlipFill?.Blip?.Embed?.Value!;
                                     //得到图像流
                                     var part = doc.MainDocumentPart.GetPartById(embed);
                                     var fileName = $"{Guid.NewGuid().ToString()}.png";
                                     var imgUrl = Path.Combine(_staticFileSettings.StaticServerRoot, fileName);
-                                    Stream imgstream = part.GetStream();
-                                    Bitmap bitmap = new Bitmap(imgstream);
-                                    bitmap.Save(imgUrl, System.Drawing.Imaging.ImageFormat.Png);
-                                    bitmap.Dispose();
-                                    imgstream.Close();
+                                    using var imgstream = part.GetStream();
+                                    if (part.ContentType == "image/x-wmf")
+                                    {
+                                        SaveWmfStream(imgstream, imgUrl);
+                                    }
+                                    else
+                                    {
+                                        Bitmap bitmap = new Bitmap(imgstream);
+                                        bitmap.Save(imgUrl, ImageFormat.Png);
+                                    }
                                     builder.Append($"<img src=\"{fileName}\"/>");
                                 }
                             }
@@ -661,6 +666,33 @@ namespace Zhzt.Exam.QuestionLib.DomainService
                 doc.Close();
             }
             return lines;
+        }
+
+
+        /// <summary>
+        /// 保存wmf图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="path"></param>
+        private void SaveWmfStream(Stream stream, string path)
+        {
+            try
+            {
+                using Metafile img = new Metafile(stream);
+                MetafileHeader header = img.GetMetafileHeader();
+                float scale = header.DpiX / 96f;
+                using Bitmap bitmap = new Bitmap((int)(scale * img.Width / header.DpiX * 100), (int)(scale * img.Height / header.DpiY * 100));
+                using Graphics g = Graphics.FromImage(bitmap);
+                g.Clear(Color.White);
+                g.ScaleTransform(scale, scale);
+                g.DrawImage(img, 0, 0);
+                bitmap.Save(path, ImageFormat.Png);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("写入失败");
+            }
+
         }
     }
 }
